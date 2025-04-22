@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:21:36 by lisambet          #+#    #+#             */
-/*   Updated: 2025/04/22 21:19:46 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/04/22 21:36:57 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 #define WIDTH 800
 #define HEIGHT 450
@@ -59,6 +60,7 @@ t_vec vec_mul(t_vec a, double t);
 t_vec vec_div(t_vec a, double t);
 double vec_length(t_vec v);
 t_vec vec_unit(t_vec v);
+double vec_dot(t_vec a, t_vec b);
 
 t_ray ray(t_point3 origin, t_vec direction);
 t_point3 ray_at(t_ray r, double t);
@@ -68,3 +70,5 @@ int get_color_int(t_color c);
 void events_init(t_scene *s);
 int key_press(int keycode, t_scene *s);
 int close_window(t_scene *s);
+
+bool sphere(t_point3 center, double radius, t_ray r);

@@ -5,6 +5,7 @@ SRCS = main.c \
 	vec.c \
 	init.c \
 	events.c \
+	objects.c \
 
 OBJS = $(SRCS:.c=.o)
 
