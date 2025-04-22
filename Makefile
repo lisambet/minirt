@@ -2,7 +2,7 @@ NAME = minirt
 
 SRCS = main.c \
 	ray.c \
-	vec3.c \
+	vec.c \
 	init.c \
 	events.c \
 

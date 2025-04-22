@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:21:36 by lisambet          #+#    #+#             */
-/*   Updated: 2025/04/21 15:15:41 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/04/22 21:19:46 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@
 #define WIDTH 800
 #define HEIGHT 450
 
-typedef struct s_vec3
+typedef struct s_vec
 {
 	double x;
 	double y;
 	double z;
-} t_vec3;
+} t_vec;
 
 typedef struct s_scene
 {
@@ -34,33 +34,33 @@ typedef struct s_scene
 	void	*win;
 	void	*img;
 	int		*data;
-	t_vec3	origin;
-	t_vec3	horizontal;
-	t_vec3	vertical;
-	t_vec3	lower_left_corner;
+	t_vec	origin;
+	t_vec	horizontal;
+	t_vec	vertical;
+	t_vec	lower_left_corner;
 }	t_scene;
 
-typedef t_vec3 t_color;
-typedef t_vec3 t_point3;
+typedef t_vec t_color;
+typedef t_vec t_point3;
 
 typedef struct s_ray
 {
 	t_point3 orig;
-	t_vec3 dir;
+	t_vec dir;
 } t_ray;
 
 t_scene	init_scene(void);
 void	render(t_scene *s);
 
-t_vec3 vec3(double x, double y, double z);
-t_vec3 vec3_add(t_vec3 a, t_vec3 b);
-t_vec3 vec3_sub(t_vec3 a, t_vec3 b);
-t_vec3 vec3_mul(t_vec3 a, double t);
-t_vec3 vec3_div(t_vec3 a, double t);
-double vec3_length(t_vec3 v);
-t_vec3 vec3_unit(t_vec3 v);
+t_vec vec(double x, double y, double z);
+t_vec vec_add(t_vec a, t_vec b);
+t_vec vec_sub(t_vec a, t_vec b);
+t_vec vec_mul(t_vec a, double t);
+t_vec vec_div(t_vec a, double t);
+double vec_length(t_vec v);
+t_vec vec_unit(t_vec v);
 
-t_ray ray(t_point3 origin, t_vec3 direction);
+t_ray ray(t_point3 origin, t_vec direction);
 t_point3 ray_at(t_ray r, double t);
 t_color ray_color(t_ray r);
 int get_color_int(t_color c);

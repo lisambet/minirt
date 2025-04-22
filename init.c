@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:46:11 by lisambet          #+#    #+#             */
-/*   Updated: 2025/04/21 15:10:18 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/04/22 21:19:46 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ t_scene	init_scene(void)
 	viewport_width = viewport_height * aspect_ratio;
 	focal_length = 1.0;
 
-	s.origin = vec3(0, 0, 0);
-	s.horizontal = vec3(viewport_width, 0, 0);
-	s.vertical = vec3(0, viewport_height, 0);
-	s.lower_left_corner = vec3_sub(vec3_sub(vec3_sub(s.origin,
-					vec3_div(s.horizontal, 2)),
-					vec3_div(s.vertical, 2)),
-					vec3(0, 0, focal_length));
+	s.origin = vec(0, 0, 0);
+	s.horizontal = vec(viewport_width, 0, 0);
+	s.vertical = vec(0, viewport_height, 0);
+	s.lower_left_corner = vec_sub(vec_sub(vec_sub(s.origin,
+					vec_div(s.horizontal, 2)),
+					vec_div(s.vertical, 2)),
+					vec(0, 0, focal_length));
 	events_init(&s);
 	return (s);
 }
@@ -68,7 +68,7 @@ void	render(t_scene *s)
 	double	u;
 	double	v;
 	t_ray	r;
-	t_vec3	direction;
+	t_vec	direction;
 	t_color	color;
 
 	y = 0;
@@ -80,9 +80,9 @@ void	render(t_scene *s)
 		{
 			u = (double)x / (WIDTH - 1);
 			v = (double)(HEIGHT - 1 - y) / (HEIGHT - 1);
-			direction = vec3_sub(vec3_add(vec3_add(s->lower_left_corner,
-							vec3_mul(s->horizontal, u)),
-							vec3_mul(s->vertical, v)),
+			direction = vec_sub(vec_add(vec_add(s->lower_left_corner,
+							vec_mul(s->horizontal, u)),
+							vec_mul(s->vertical, v)),
 					s->origin);
 			r = ray(s->origin, direction);
 			color = ray_color(r);

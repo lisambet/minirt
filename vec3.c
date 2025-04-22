@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec3.c                                             :+:      :+:    :+:   */
+/*   vec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,38 +12,38 @@
 
 #include "minirt.h"
 
-t_vec3 vec3(double x, double y, double z)
+t_vec vec(double x, double y, double z)
 {
-	t_vec3 v = {x, y, z};
+	t_vec v = {x, y, z};
 	return v;
 }
 
-t_vec3 vec3_add(t_vec3 a, t_vec3 b)
+t_vec vec_add(t_vec a, t_vec b)
 {
-	return vec3(a.x + b.x, a.y + b.y, a.z + b.z);
+	return vec(a.x + b.x, a.y + b.y, a.z + b.z);
 }
 
-t_vec3 vec3_sub(t_vec3 a, t_vec3 b)
+t_vec vec_sub(t_vec a, t_vec b)
 {
-	return vec3(a.x - b.x, a.y - b.y, a.z - b.z);
+	return vec(a.x - b.x, a.y - b.y, a.z - b.z);
 }
 
-t_vec3 vec3_mul(t_vec3 a, double t)
+t_vec vec_mul(t_vec a, double t)
 {
-	return vec3(a.x * t, a.y * t, a.z * t);
+	return vec(a.x * t, a.y * t, a.z * t);
 }
 
-t_vec3 vec3_div(t_vec3 a, double t)
+t_vec vec_div(t_vec a, double t)
 {
-	return vec3_mul(a, 1 / t);
+	return vec_mul(a, 1 / t);
 }
 
-double vec3_length(t_vec3 v)
+double vec_length(t_vec v)
 {
 	return sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
 }
 
-t_vec3 vec3_unit(t_vec3 v)
+t_vec vec_unit(t_vec v)
 {
-	return vec3_div(v, vec3_length(v));
+	return vec_div(v, vec_length(v));
 }
