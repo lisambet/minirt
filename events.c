@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:05:09 by lisambet          #+#    #+#             */
-/*   Updated: 2025/04/21 15:17:11 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/04/23 18:51:19 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ void events_init(t_scene *s)
 
 int key_press(int keycode, t_scene *s)
 {
+	(void) *s;
 	if (keycode == 65307)
 	{
-		close_window(s);
+		exit(0);
+		//close_window(s);
 	}
 	return (0);
 }

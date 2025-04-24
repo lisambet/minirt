@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:46:11 by lisambet          #+#    #+#             */
-/*   Updated: 2025/04/22 21:18:16 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/04/23 18:44:59 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ t_scene	init_scene(void)
 	double	viewport_height;
 	double	viewport_width;
 	double	focal_length;
+	int bits_per_pixel;
+int line_length;
+int endian;
 
 	s.mlx = mlx_init();
 	if(!s.mlx)
@@ -43,8 +46,7 @@ t_scene	init_scene(void)
 		perror("Failed to create image");
 		exit(EXIT_FAILURE);
 	}
-	s.data = (int *)mlx_get_data_addr(s.img, &(int){0}, &(int){0}, &(int){0});
-
+	s.data = (int *)mlx_get_data_addr(s.img, &bits_per_pixel, &line_length, &endian);
 	aspect_ratio = (double)WIDTH / HEIGHT;
 	viewport_height = 2.0;
 	viewport_width = viewport_height * aspect_ratio;
