@@ -6,12 +6,12 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:27:41 by lisambet          #+#    #+#             */
-/*   Updated: 2025/04/22 21:41:04 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/04/26 13:02:08 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-t_ray	ray(t_point3 origin, t_vec direction)
+t_ray	ray(t_point origin, t_vec direction)
 {
 	t_ray	r;
 
@@ -20,7 +20,7 @@ t_ray	ray(t_point3 origin, t_vec direction)
 	return (r);
 }
 
-t_point3	ray_at(t_ray r, double t)
+t_point	ray_at(t_ray r, double t)
 {
 	return (vec_add(r.orig, vec_mul(r.dir, t)));
 }
@@ -34,6 +34,8 @@ t_color	ray_color(t_ray r)
 
 	if (sphere(vec(0, 0, -1), 0.5, r))
 		return (vec(1.0, 0.0, 0.0));
+	if (plane(vec(0, -1, 0), vec(0, 1, 0), r))
+		return (vec(0.0, 1.0, 0.0));
 	unit_dir = vec_unit(r.dir);
 	t = 0.5 * (unit_dir.y + 1.0);
 	white = vec(1.0, 1.0, 1.0);
