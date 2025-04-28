@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:21:36 by lisambet          #+#    #+#             */
-/*   Updated: 2025/04/26 13:13:24 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/04/28 10:55:42 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_camera
 	t_point pos;
 	t_vec dir;
 	double	zoom;
-	//t_vec	look_dir;
+	t_vec	look_dir;
 
 } t_camera;
 
@@ -49,6 +49,7 @@ typedef struct s_scene
 	t_vec	vertical;
 	t_vec	lower_left_corner;
 	t_camera camera;
+	int     should_exit;
 }	t_scene;
 
 
@@ -85,5 +86,3 @@ int close_window(t_scene *s);
 
 bool sphere(t_point center, double radius, t_ray r);
 bool plane(t_point p0, t_vec normal, t_ray r);
-
-//void update_camera(t_scene *s);
