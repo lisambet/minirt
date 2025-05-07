@@ -6,10 +6,12 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:21:36 by lisambet          #+#    #+#             */
-/*   Updated: 2025/04/28 10:55:42 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/05/07 19:45:10 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef MINIRT_H
+# define MINIRT_H
 #include "minilibx-linux/mlx.h"
 # include <X11/X.h>
 # include <X11/keysym.h>
@@ -22,12 +24,18 @@
 #define WIDTH 800
 #define HEIGHT 450
 
+
+
 typedef struct s_vec
 {
 	double x;
 	double y;
 	double z;
 } t_vec, t_point;
+
+typedef t_vec t_color;
+typedef t_vec t_point;
+
 
 typedef struct s_camera
 {
@@ -37,6 +45,42 @@ typedef struct s_camera
 	t_vec	look_dir;
 
 } t_camera;
+
+typedef struct s_sphere
+{
+	t_vec    vtx;
+    float    d;
+    t_color    color;
+	t_point center;
+	double radius;
+	struct s_sphere *next;
+} t_sphere;
+
+typedef struct s_cylinder
+{
+	t_vec    vtx;
+    t_vec    rot;
+    float    d;
+    float    h;
+	t_point p0;
+	t_vec normal;
+    t_color    color;
+	t_point center;
+	t_vec axis;
+	double radius;
+	double height;
+	struct s_cylinder *next;
+} t_cylinder;
+
+typedef struct s_plane
+{
+	t_vec    vtx;
+    t_vec    rot;
+	t_point p0;
+	t_vec normal;
+	t_color color;
+	struct s_plane *next;
+} t_plane;
 
 typedef struct s_scene
 {
@@ -49,6 +93,9 @@ typedef struct s_scene
 	t_vec	vertical;
 	t_vec	lower_left_corner;
 	t_camera camera;
+	t_sphere *spheres;
+	t_plane *planes;
+	t_cylinder *cylinders;
 	int     should_exit;
 }	t_scene;
 
@@ -60,8 +107,6 @@ typedef struct s_ray
 	t_vec dir;
 } t_ray;
 
-typedef t_vec t_color;
-typedef t_vec t_point;
 
 t_scene	init_scene(void);
 void	render(t_scene *s);
@@ -77,12 +122,23 @@ double vec_dot(t_vec a, t_vec b);
 
 t_ray ray(t_point origin, t_vec direction);
 t_point ray_at(t_ray r, double t);
-t_color ray_color(t_ray r);
+t_color	ray_color(t_sphere *spheres, t_plane *planes, t_cylinder *cylenders, t_ray r);
 int get_color_int(t_color c);
 
 void events_init(t_scene *s);
 int key_press(int keycode, t_scene *s);
 int close_window(t_scene *s);
 
-bool sphere(t_point center, double radius, t_ray r);
-bool plane(t_point p0, t_vec normal, t_ray r);
+
+t_sphere *sphere(t_point center, double radius, t_color color);
+bool hit_sphere(t_sphere *sphere, t_ray r, double *t_out);
+t_plane *plane(t_point p0, t_vec normal, t_color color);
+bool hit_plane(t_plane *plane, t_ray r, double *t_out);
+t_cylinder *cylinder(t_point p0, t_vec normal, double radius, double height, t_color color);
+bool hit_cylinder(t_cylinder *cylinder, t_ray r, double *t_out);
+
+int			error_exit(char *msg);
+int			cleanup_mlx(t_scene *s, char *msg);
+int			cleanup_window(t_scene *s, char *msg);
+
+# endif

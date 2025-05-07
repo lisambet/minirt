@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:27:41 by lisambet          #+#    #+#             */
-/*   Updated: 2025/04/26 13:02:08 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/05/07 19:59:51 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,42 @@ t_point	ray_at(t_ray r, double t)
 	return (vec_add(r.orig, vec_mul(r.dir, t)));
 }
 
-t_color	ray_color(t_ray r)
+t_color	ray_color(t_sphere *spheres, t_plane *planes, t_cylinder *cylinders, t_ray r)
 {
-	t_vec	unit_dir;
-	double	t;
-	t_color	white;
-	t_color	blue;
+	double closest_t = INFINITY;
+	t_color final_color = (t_color){0, 0, 0}; // Background: black
 
-	if (sphere(vec(0, 0, -1), 0.5, r))
-		return (vec(1.0, 0.0, 0.0));
-	if (plane(vec(0, -1, 0), vec(0, 1, 0), r))
-		return (vec(0.0, 1.0, 0.0));
-	unit_dir = vec_unit(r.dir);
-	t = 0.5 * (unit_dir.y + 1.0);
-	white = vec(1.0, 1.0, 1.0);
-	blue = vec(0.5, 0.7, 1.0);
-	return (vec_add(vec_mul(white, (1.0 - t)), vec_mul(blue, t)));
+	while (spheres)
+	{
+		double t;
+		if (hit_sphere(spheres, r, &t) && t < closest_t)
+		{
+			closest_t = t;
+			final_color = spheres->color;
+		}
+		spheres = spheres->next;
+	}
+	while (planes)
+	{
+		double t;
+		if (hit_plane(planes, r, &t) && t < closest_t)
+		{
+			closest_t = t;
+			final_color = planes->color;
+		}
+		planes = planes->next;
+	}
+	while (cylinders)
+	{
+		double t;
+		if (hit_cylinder(cylinders, r, &t) && t < closest_t)
+		{
+			closest_t = t;
+			final_color = cylinders->color;
+		}
+		cylinders = cylinders->next;
+	}
+	return final_color;
 }
 
 int	get_color_int(t_color c)
