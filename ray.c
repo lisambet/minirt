@@ -6,11 +6,19 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:27:41 by lisambet          #+#    #+#             */
-/*   Updated: 2025/05/07 19:59:51 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/05/09 17:42:46 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+t_color color_add(t_color a, t_color b, float intensity) // plus doux
+{
+	return ((t_color){a.x * intensity + b.x * (1 - intensity),
+		a.y * intensity + b.y * (1 - intensity),
+		a.z * intensity + b.z * (1 - intensity)});
+}
+
 t_ray	ray(t_point origin, t_vec direction)
 {
 	t_ray	r;
@@ -25,40 +33,43 @@ t_point	ray_at(t_ray r, double t)
 	return (vec_add(r.orig, vec_mul(r.dir, t)));
 }
 
-t_color	ray_color(t_sphere *spheres, t_plane *planes, t_cylinder *cylinders, t_ray r)
+t_color	ray_color(t_scene *s, t_ray r)
 {
 	double closest_t = INFINITY;
-	t_color final_color = (t_color){0, 0, 0}; // Background: black
+	t_color final_color = (t_color){0, 0, 0};
 
-	while (spheres)
+	t_sphere *sphere = s->spheres;
+	while (sphere)
 	{
 		double t;
-		if (hit_sphere(spheres, r, &t) && t < closest_t)
+		if (hit_sphere(sphere, r, &t) && t < closest_t)
 		{
 			closest_t = t;
-			final_color = spheres->color;
+			final_color = color_add(sphere->color, s->amb->color, s->amb->i);
 		}
-		spheres = spheres->next;
+		sphere = sphere->next;
 	}
-	while (planes)
+	t_plane *plane = s->planes;
+	while (plane)
 	{
 		double t;
-		if (hit_plane(planes, r, &t) && t < closest_t)
+		if (hit_plane(plane, r, &t) && t < closest_t)
 		{
 			closest_t = t;
-			final_color = planes->color;
+			final_color = color_add(plane->color, s->amb->color, s->amb->i);
 		}
-		planes = planes->next;
+		plane = plane->next;
 	}
-	while (cylinders)
+	t_cylinder *cylinder = s->cylinders;
+	while (cylinder)
 	{
 		double t;
-		if (hit_cylinder(cylinders, r, &t) && t < closest_t)
+		if (hit_cylinder(cylinder, r, &t) && t < closest_t)
 		{
 			closest_t = t;
-			final_color = cylinders->color;
+			final_color = color_add(cylinder->color, s->amb->color, s->amb->i);
 		}
-		cylinders = cylinders->next;
+		cylinder = cylinder->next;
 	}
 	return final_color;
 }

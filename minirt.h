@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:21:36 by lisambet          #+#    #+#             */
-/*   Updated: 2025/05/08 19:33:37 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/05/09 17:36:48 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ double vec_dot(t_vec a, t_vec b);
 
 t_ray ray(t_point origin, t_vec direction);
 t_point ray_at(t_ray r, double t);
-t_color	ray_color(t_sphere *spheres, t_plane *planes, t_cylinder *cylenders, t_ray r);
+t_color	ray_color(t_scene *s, t_ray r);
 int get_color_int(t_color c);
 
 void events_init(t_scene *s);
@@ -157,7 +157,7 @@ bool hit_cap(t_ray r, t_point center, t_vec normal, double radius, double *t_out
 
 t_lgt *light(t_point vtx, float i, t_color color);
 t_amb *amb(float i, t_color color);
-
+t_color color_add(t_color a, t_color b, float intensity);
 
 int			error_exit(char *msg);
 int			cleanup_mlx(t_scene *s, char *msg);

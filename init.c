@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:46:11 by lisambet          #+#    #+#             */
-/*   Updated: 2025/05/08 19:31:36 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/05/09 17:39:19 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void render(t_scene *s)
 										vec_mul(s->vertical, v)),
 								s->origin);
 			r = ray(s->origin, direction);
-			color = ray_color(s->spheres, s->planes, s->cylinders,r);
+			color = ray_color(s,r);
 			s->data[y * WIDTH + x] = get_color_int(color);
 			x++;
 		}
