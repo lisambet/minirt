@@ -7,6 +7,7 @@ SRCS = main.c \
 	events.c \
 	objects.c \
 	cleanup.c \
+	light.c \
 
 OBJS = $(SRCS:.c=.o)
 

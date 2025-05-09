@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 21:31:35 by lisambet          #+#    #+#             */
-/*   Updated: 2025/05/07 19:42:54 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/05/08 15:29:38 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,24 @@ t_cylinder *cylinder(t_point p0, t_vec normal, double radius, double height, t_c
 	new->next = NULL;
 	return (new);
 }
+bool hit_cap(t_ray r, t_point center, t_vec normal, double radius, double *t_out)
+{
+	double denom = vec_dot(normal, r.dir);
+	if (fabs(denom) < 1e-6)
+		return false;
+
+	double t = vec_dot(vec_sub(center, r.orig), normal) / denom;
+	if (t < 0.001)
+		return false;
+
+	t_point p = vec_add(r.orig, vec_mul(r.dir, t));
+	if (vec_length(vec_sub(p, center)) <= radius)
+	{
+		*t_out = t;
+		return true;
+	}
+	return false;
+}
 
 bool hit_cylinder(t_cylinder *cyl, t_ray r, double *t_out)
 {
@@ -81,16 +99,37 @@ bool hit_cylinder(t_cylinder *cyl, t_ray r, double *t_out)
 	double c = vec_dot(oc, oc) - pow(vec_dot(oc, cyl->normal), 2) - cyl->radius * cyl->radius;
 	double discriminant = b * b - 4 * a * c;
 
-	if (discriminant < 0)
-		return false;
+	double t_side = -1;
+	if (discriminant >= 0)
+	{
+		double t = (-b - sqrt(discriminant)) / (2.0 * a);
+		if (t > 0.001)
+		{
+			t_point p = vec_add(r.orig, vec_mul(r.dir, t));
+			double h = vec_dot(vec_sub(p, cyl->p0), cyl->normal);
+			if (h >= 0 && h <= cyl->height)
+				t_side = t;
+		}
+	}
 
-	double t = (-b - sqrt(discriminant)) / (2.0 * a);
-	if (t > 0.001) {
-		*t_out = t;
+	t_point top = vec_add(cyl->p0, vec_mul(cyl->normal, cyl->height));
+	double t_cap1 = -1, t_cap2 = -1;
+	bool hit1 = hit_cap(r, cyl->p0, cyl->normal, cyl->radius, &t_cap1);
+	bool hit2 = hit_cap(r, top, cyl->normal, cyl->radius, &t_cap2);
+
+	double t_min = 1e30;
+	if (t_side > 0.001 && t_side < t_min) t_min = t_side;
+	if (hit1 && t_cap1 < t_min) t_min = t_cap1;
+	if (hit2 && t_cap2 < t_min) t_min = t_cap2;
+
+	if (t_min < 1e30)
+	{
+		*t_out = t_min;
 		return true;
 	}
 	return false;
 }
+
 
 bool	hit_plane(t_plane *plane, t_ray r, double *t_out)
 {

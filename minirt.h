@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:21:36 by lisambet          #+#    #+#             */
-/*   Updated: 2025/05/07 19:45:10 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/05/08 19:33:37 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,20 @@ typedef struct s_camera
 	t_vec	look_dir;
 
 } t_camera;
+
+typedef struct s_amb
+{
+    float    i;
+    t_color    color;
+}    t_amb;
+
+typedef struct s_lgt
+{
+    t_vec    vtx;
+    float    i;
+    t_color    color;
+	struct s_lgt *next;
+}    t_lgt;
 
 typedef struct s_sphere
 {
@@ -96,6 +110,8 @@ typedef struct s_scene
 	t_sphere *spheres;
 	t_plane *planes;
 	t_cylinder *cylinders;
+	t_lgt *lights;
+	t_amb *amb;
 	int     should_exit;
 }	t_scene;
 
@@ -131,11 +147,17 @@ int close_window(t_scene *s);
 
 
 t_sphere *sphere(t_point center, double radius, t_color color);
-bool hit_sphere(t_sphere *sphere, t_ray r, double *t_out);
 t_plane *plane(t_point p0, t_vec normal, t_color color);
-bool hit_plane(t_plane *plane, t_ray r, double *t_out);
 t_cylinder *cylinder(t_point p0, t_vec normal, double radius, double height, t_color color);
+
+bool hit_sphere(t_sphere *sphere, t_ray r, double *t_out);
+bool hit_plane(t_plane *plane, t_ray r, double *t_out);
 bool hit_cylinder(t_cylinder *cylinder, t_ray r, double *t_out);
+bool hit_cap(t_ray r, t_point center, t_vec normal, double radius, double *t_out);
+
+t_lgt *light(t_point vtx, float i, t_color color);
+t_amb *amb(float i, t_color color);
+
 
 int			error_exit(char *msg);
 int			cleanup_mlx(t_scene *s, char *msg);
