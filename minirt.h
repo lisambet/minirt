@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:21:36 by lisambet          #+#    #+#             */
-/*   Updated: 2025/05/09 17:36:48 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/05/12 17:59:42 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,11 @@ t_vec vec_add(t_vec a, t_vec b);
 t_vec vec_sub(t_vec a, t_vec b);
 t_vec vec_mul(t_vec a, double t);
 t_vec vec_div(t_vec a, double t);
+t_vec vec_neg(t_vec v);
 double vec_length(t_vec v);
 t_vec vec_unit(t_vec v);
 double vec_dot(t_vec a, t_vec b);
+t_vec vec_normalize(t_vec v);
 
 t_ray ray(t_point origin, t_vec direction);
 t_point ray_at(t_ray r, double t);

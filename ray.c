@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:27:41 by lisambet          #+#    #+#             */
-/*   Updated: 2025/05/09 17:42:46 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/05/12 18:39:39 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@ t_color	ray_color(t_scene *s, t_ray r)
 	double closest_t = INFINITY;
 	t_color final_color = (t_color){0, 0, 0};
 
+	t_lgt *light = s->lights;
+	while (light)
+	{
+		final_color = color_add(final_color, light->color, light->i);
+		light = light->next;
+	}
 	t_sphere *sphere = s->spheres;
 	while (sphere)
 	{

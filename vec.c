@@ -56,3 +56,16 @@ double vec_dot(t_vec a, t_vec b)
 {
 	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }
+
+t_vec vec_neg(t_vec v)
+{
+	return vec(-v.x, -v.y, -v.z);
+}
+
+t_vec vec_normalize(t_vec v)
+{
+	double length = vec_length(v);
+	if (length == 0)
+		return vec(0, 0, 0);
+	return vec_div(v, length);
+}
