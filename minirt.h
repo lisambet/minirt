@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:21:36 by lisambet          #+#    #+#             */
-/*   Updated: 2025/05/12 17:59:42 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/05/14 09:35:49 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,8 +154,9 @@ t_cylinder *cylinder(t_point p0, t_vec normal, double radius, double height, t_c
 
 bool hit_sphere(t_sphere *sphere, t_ray r, double *t_out);
 bool hit_plane(t_plane *plane, t_ray r, double *t_out);
-bool hit_cylinder(t_cylinder *cylinder, t_ray r, double *t_out);
-bool hit_cap(t_ray r, t_point center, t_vec normal, double radius, double *t_out);
+bool	hit_cylinder_side(t_cylinder *cyl, t_ray r, double *t_side);
+bool	hit_cylinder_cap(t_cylinder *cyl, t_ray r, double *t_cap, double t_side);
+bool	hit_cylinder(t_cylinder *cyl, t_ray r, double *t_out);
 
 t_lgt *light(t_point vtx, float i, t_color color);
 t_amb *amb(float i, t_color color);

@@ -8,6 +8,7 @@ SRCS = main.c \
 	objects.c \
 	cleanup.c \
 	light.c \
+	cylinder.c \
 
 OBJS = $(SRCS:.c=.o)
 
