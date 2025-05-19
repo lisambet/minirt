@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:27:41 by lisambet          #+#    #+#             */
-/*   Updated: 2025/05/19 14:51:38 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/05/19 14:56:04 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ t_color ray_color(t_scene *s, t_ray r)
     void *closest_object = NULL;
     int closest_type = -1;
 
-    // Check spheres
     t_sphere *sphere = s->spheres;
     while (sphere)
     {
@@ -53,8 +52,6 @@ t_color ray_color(t_scene *s, t_ray r)
         }
         sphere = sphere->next;
     }
-
-    // Check planes
     t_plane *plane = s->planes;
     while (plane)
     {
@@ -67,8 +64,6 @@ t_color ray_color(t_scene *s, t_ray r)
         }
         plane = plane->next;
     }
-
-    // Check cylinders
     t_cylinder *cylinder = s->cylinders;
     while (cylinder)
     {
@@ -81,17 +76,11 @@ t_color ray_color(t_scene *s, t_ray r)
         }
         cylinder = cylinder->next;
     }
-
     if (closest_object)
     {
         t_point intersection_point = ray_at(r, closest_t);
         final_color = light_objects(s, r, closest_object, closest_type, intersection_point, closest_t);
     }
-    else
-    {
-        // Background color or other handling for no hit
-    }
-
     return final_color;
 }
 
