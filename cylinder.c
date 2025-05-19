@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 09:36:03 by lisambet          #+#    #+#             */
-/*   Updated: 2025/05/14 09:36:36 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/05/19 14:41:07 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ t_cylinder *cylinder(t_point p0, t_vec normal, double radius, double height, t_c
 	new->normal = normal;
 	new->radius = radius;
 	new->height = height;
-	new->color = color;
+	new->color.x = color.x / 255.0;
+	new->color.y = color.y / 255.0;
+	new->color.z = color.z / 255.0;
 	new->next = NULL;
 	return (new);
 }

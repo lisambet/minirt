@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 21:31:35 by lisambet          #+#    #+#             */
-/*   Updated: 2025/05/14 09:36:19 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/05/19 14:40:55 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ t_sphere *sphere(t_point center, double radius, t_color color)
 		return (NULL);
 	new->center = center;
 	new->radius = radius;
-	new->color = color;
+    new->color.x = color.x / 255.0;
+    new->color.y = color.y / 255.0;
+    new->color.z = color.z / 255.0;
 	new->next = NULL;
 	return (new);
 }
@@ -59,12 +61,12 @@ t_plane *plane(t_point p0, t_vec normal, t_color color)
 		return (NULL);
 	new->p0 = p0;
 	new->normal = normal;
-	new->color = color;
+	new->color.x = color.x / 255.0;
+	new->color.y = color.y / 255.0;
+	new->color.z = color.z / 255.0;
 	new->next = NULL;
 	return (new);
 }
-
-
 
 bool hit_plane(t_plane *plane, t_ray r, double *t_out)
 {

@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:21:36 by lisambet          #+#    #+#             */
-/*   Updated: 2025/05/14 09:35:49 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/05/19 14:39:00 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#define WIDTH 800
-#define HEIGHT 450
+#define WIDTH 1600
+#define HEIGHT 900
 
 
 
@@ -115,8 +115,6 @@ typedef struct s_scene
 	int     should_exit;
 }	t_scene;
 
-
-
 typedef struct s_ray
 {
 	t_point orig;
@@ -159,6 +157,7 @@ bool	hit_cylinder_cap(t_cylinder *cyl, t_ray r, double *t_cap, double t_side);
 bool	hit_cylinder(t_cylinder *cyl, t_ray r, double *t_out);
 
 t_lgt *light(t_point vtx, float i, t_color color);
+t_color light_objects(t_scene *s, t_ray r, void *object, int object_type, t_point intersection_point, double closest_t);
 t_amb *amb(float i, t_color color);
 t_color color_add(t_color a, t_color b, float intensity);
 
