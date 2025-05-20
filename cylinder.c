@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 09:36:03 by lisambet          #+#    #+#             */
-/*   Updated: 2025/05/19 14:41:07 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/05/20 14:46:59 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,22 +107,42 @@ bool	hit_cylinder_side(t_cylinder *cyl, t_ray r, double *t_side)
 }
 
 
-bool	hit_cylinder(t_cylinder *cyl, t_ray r, double *t_out)
+bool hit_cylinder(t_cylinder *cyl, t_ray r, double *t_out, int *hit_type)
 {
-	double	t_side;
-	double	t_cap;
+    double t_side = -1.0;
+    double t_cap = -1.0;
+    bool hit_side_bool = hit_cylinder_side(cyl, r, &t_side);
+    bool hit_cap_bool = hit_cylinder_cap(cyl, r, &t_cap, t_side);
 
-	hit_cylinder_side(cyl, r, &t_side);
-	hit_cylinder_cap(cyl, r, &t_cap, t_side);
-	if (t_side > 0 && (t_cap < 0 || t_side < t_cap))
-	{
-		*t_out = t_side;
-		return (true);
-	}
-	if (t_cap > 0)
-	{
-		*t_out = t_cap;
-		return (true);
-	}
-	return (false);
+    *t_out = -1.0;
+    *hit_type = -1;
+
+    if (hit_side_bool && hit_cap_bool)
+    {
+        if (t_side < t_cap)
+        {
+            *t_out = t_side;
+            *hit_type = 0;
+        }
+        else
+        {
+            *t_out = t_cap;
+            *hit_type = 1;
+        }
+        return (true);
+    }
+    else if (hit_side_bool)
+    {
+        *t_out = t_side;
+        *hit_type = 0;
+        return (true);
+    }
+    else if (hit_cap_bool)
+    {
+        *t_out = t_cap;
+        *hit_type = 1;
+        return (true);
+    }
+    return (false);
 }
+

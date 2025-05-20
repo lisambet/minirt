@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:21:36 by lisambet          #+#    #+#             */
-/*   Updated: 2025/05/19 14:39:00 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/05/20 14:47:28 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 
 #define WIDTH 1600
 #define HEIGHT 900
-
 
 
 typedef struct s_vec
@@ -43,18 +42,18 @@ typedef struct s_camera
 	t_vec dir;
 	double	zoom;
 	t_vec	look_dir;
-
+	
 } t_camera;
 
 typedef struct s_amb
 {
-    float    i;
+	float    i;
     t_color    color;
 }    t_amb;
 
 typedef struct s_lgt
 {
-    t_vec    vtx;
+	t_vec    vtx;
     float    i;
     t_color    color;
 	struct s_lgt *next;
@@ -86,6 +85,23 @@ typedef struct s_cylinder
 	struct s_cylinder *next;
 } t_cylinder;
 
+typedef struct s_hit_record
+{
+	double  t;  
+	t_point p;   
+	t_color color;      
+	void    *object_ptr; 
+	int     object_type;
+	int     hit;  
+	int hit_type;       
+} t_hit_record;
+
+enum e_object_type {
+	OBJ_SPHERE,
+	OBJ_PLANE,
+	OBJ_CYLINDER,
+	OBJ_NONE = -1
+};
 typedef struct s_plane
 {
 	t_vec    vtx;
@@ -154,12 +170,20 @@ bool hit_sphere(t_sphere *sphere, t_ray r, double *t_out);
 bool hit_plane(t_plane *plane, t_ray r, double *t_out);
 bool	hit_cylinder_side(t_cylinder *cyl, t_ray r, double *t_side);
 bool	hit_cylinder_cap(t_cylinder *cyl, t_ray r, double *t_cap, double t_side);
-bool	hit_cylinder(t_cylinder *cyl, t_ray r, double *t_out);
+bool hit_cylinder(t_cylinder *cyl, t_ray r, double *t_out, int *hit_type);
+
+t_vec get_hit_object_normal(t_ray r, t_hit_record *rec);
+t_color get_final_pixel_color(t_scene *s, t_ray r, t_hit_record *rec);
+void    init_hit_record(t_hit_record *rec);
 
 t_lgt *light(t_point vtx, float i, t_color color);
 t_color light_objects(t_scene *s, t_ray r, void *object, int object_type, t_point intersection_point, double closest_t);
 t_amb *amb(float i, t_color color);
-t_color color_add(t_color a, t_color b, float intensity);
+t_color color_add(t_color c1, t_color c2);
+double clamp(double value, double min, double max);
+void check_cylinder_hits(t_scene *s, t_ray r, t_hit_record *rec);
+void check_plane_hits(t_scene *s, t_ray r, t_hit_record *rec);
+void check_sphere_hits(t_scene *s, t_ray r, t_hit_record *rec);
 
 int			error_exit(char *msg);
 int			cleanup_mlx(t_scene *s, char *msg);

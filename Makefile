@@ -9,6 +9,7 @@ SRCS = main.c \
 	cleanup.c \
 	light.c \
 	cylinder.c \
+	get_normal.c \
 
 OBJS = $(SRCS:.c=.o)
 

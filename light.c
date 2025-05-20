@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 19:31:44 by lisambet          #+#    #+#             */
-/*   Updated: 2025/05/19 14:56:44 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/05/20 14:46:10 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,46 +35,67 @@ t_amb *amb(float i, t_color color)
 	if (!new)
 		return (NULL);
 	new->i = i;
-	new->color = color;
+	new->color.x = color.x / 255.0;
+	new->color.y = color.y / 255.0;
+	new->color.z = color.z / 255.0;
 	return (new);
 }
 
-t_color light_objects(t_scene *s, t_ray r, void *object, int object_type, t_point intersection_point, double closest_t)
+t_color get_final_pixel_color(t_scene *s, t_ray r, t_hit_record *rec)
 {
-    t_vec normal;
+    t_vec   normal;
     t_color object_color;
-    t_lgt *light = s->lights;
-    t_color final_color = (t_color){0, 0, 0};
+    t_color final_light_color = (t_color){0, 0, 0};
+    t_lgt   *light = s->lights;
 
-    if (!light)
-        return final_color;
-    if (object_type == 0)
+    object_color = rec->color;
+    normal = get_hit_object_normal(r, rec);
+    if (s->amb)
     {
-        t_sphere *sp = (t_sphere *)object;
-        normal = vec_normalize(vec_sub(intersection_point, sp->center));
-        object_color = sp->color;
+		final_light_color.x = object_color.x * s->amb->color.x * s->amb->i;
+        final_light_color.y = object_color.y * s->amb->color.y * s->amb->i;
+        final_light_color.z = object_color.z * s->amb->color.z * s->amb->i;
     }
-    else if (object_type == 1)
+    if (light)
     {
-        t_plane *pl = (t_plane *)object;
-        normal = pl->normal;
-        object_color = pl->color;
+        t_vec light_dir = vec_normalize(vec_sub(light->vtx, rec->p));
+        double diffuse_factor = fmax(vec_dot(normal, light_dir), 0.0);
+
+        t_color direct_contribution;
+        direct_contribution.x = object_color.x * light->color.x * diffuse_factor * light->i;
+        direct_contribution.y = object_color.y * light->color.y * diffuse_factor * light->i;
+        direct_contribution.z = object_color.z * light->color.z * diffuse_factor * light->i;
+        
+        final_light_color = color_add(final_light_color, direct_contribution);
     }
-    else if (object_type == 2)
-    {
-        t_cylinder *cyl = (t_cylinder *)object;
-        t_vec oc = vec_sub(intersection_point, cyl->p0);
-        double m = vec_dot(r.dir, cyl->normal) * closest_t + vec_dot(vec_sub(r.orig, cyl->p0), cyl->normal);
-        t_vec normal_unnormalized = vec_sub(oc, vec_mul(cyl->normal, m));
-        normal = vec_normalize(normal_unnormalized);
-        object_color = cyl->color;
-    }
+    return final_light_color;
+}
+
+int	get_color_int(t_color c)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = (int)(255.999 * c.x);
+	g = (int)(255.999 * c.y);
+	b = (int)(255.999 * c.z);
+	return ((r << 16) | (g << 8) | b);
+}
+
+t_color ray_color(t_scene *s, t_ray r)
+{
+    t_hit_record rec;
+
+    init_hit_record(&rec);
+
+    check_sphere_hits(s, r, &rec);
+    check_plane_hits(s, r, &rec);
+    check_cylinder_hits(s, r, &rec);
+
+    if (rec.hit)
+        return get_final_pixel_color(s, r, &rec);
     else
-        return final_color;
-    t_vec light_dir = vec_normalize(vec_sub(light->vtx, intersection_point));
-    double diffuse = fmax(vec_dot(normal, light_dir), 0);
-    final_color.x = object_color.x * light->color.x * diffuse * light->i;
-    final_color.y = object_color.y * light->color.y * diffuse * light->i;
-    final_color.z = object_color.z * light->color.z * diffuse * light->i;
-    return final_color;
+        return (t_color){0, 0, 0};
+
 }

@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:46:11 by lisambet          #+#    #+#             */
-/*   Updated: 2025/05/19 14:46:40 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/05/20 14:34:26 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ void	init_scene_objects(t_scene *s)
 	s->amb = NULL;
 	my_plane = plane(vec(-1, -2, -2), vec(0, 1, 0), vec(0, 0, 225));
 	s->planes = my_plane;
-	my_sphere = sphere(vec(1, -0.5, -2), 0.5, vec(0, 255, 0));
+	my_sphere = sphere(vec(-2, -0.5, -2), 0.5, vec(0, 255, 0));
 	s->spheres = my_sphere;
-	my_cylinder = cylinder(vec(0, -1, -2), vec(0, 1, 0), 0.5, 1, vec(255, 0, 0));
+	my_cylinder = cylinder(vec(-0.5, 1, -2), vec(0, 0, 1), 0.5, 1, vec(255, 0, 0));
 	s->cylinders = my_cylinder;
-	my_light = light(vec(0, 0, 0), 1, vec(255, 255, 255));
+	my_light = light(vec(1, 0, 0), 1, vec(255, 255, 255));
 	s->lights = my_light;
-	my_amb = amb(0.5, vec(255, 255, 255));
+	my_amb = amb(0.2, vec(255, 255, 255));
 	s->amb = my_amb;
 }
 
@@ -67,7 +67,7 @@ t_scene	init_scene(void)
 	s.mlx = mlx_init();
 	if (!s.mlx)
 		exit(error_exit("Failed to initialize mlx"));
-	s.win = mlx_new_window(s.mlx, WIDTH, HEIGHT, "Gradient Sky");
+	s.win = mlx_new_window(s.mlx, WIDTH, HEIGHT, "minirt");
 	if (!s.win)
 		exit(cleanup_mlx(&s, "Failed to create window"));
 	s.img = mlx_new_image(s.mlx, WIDTH, HEIGHT);
@@ -80,6 +80,14 @@ t_scene	init_scene(void)
 	return (s);
 }
 
+void    init_hit_record(t_hit_record *rec)
+{
+    rec->t = INFINITY;
+    rec->object_ptr = NULL;
+    rec->object_type = OBJ_NONE;
+    rec->hit = 0;
+	rec->hit_type = 0;
+}
 
 void render(t_scene *s)
 {
