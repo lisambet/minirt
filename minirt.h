@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:21:36 by lisambet          #+#    #+#             */
-/*   Updated: 2025/05/20 14:47:28 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/05/28 18:17:38 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 #define WIDTH 1600
 #define HEIGHT 900
+#define SHADOW_BIAS 0.001
 
 
 typedef struct s_vec
@@ -148,9 +149,14 @@ t_vec vec_mul(t_vec a, double t);
 t_vec vec_div(t_vec a, double t);
 t_vec vec_neg(t_vec v);
 double vec_length(t_vec v);
+double vec_length_sq(t_vec v);
 t_vec vec_unit(t_vec v);
 double vec_dot(t_vec a, t_vec b);
 t_vec vec_normalize(t_vec v);
+
+double	get_m_projection(t_cylinder *cyl, t_ray r, double t);
+void	get_cyl_eq_coefficients(t_cylinder *cyl, t_ray r, double *a, double *b, double *c);
+bool	solve_quadratic(double a, double b, double c, double *t1, double *t2);
 
 t_ray ray(t_point origin, t_vec direction);
 t_point ray_at(t_ray r, double t);
@@ -173,6 +179,7 @@ bool	hit_cylinder_cap(t_cylinder *cyl, t_ray r, double *t_cap, double t_side);
 bool hit_cylinder(t_cylinder *cyl, t_ray r, double *t_out, int *hit_type);
 
 t_vec get_hit_object_normal(t_ray r, t_hit_record *rec);
+t_vec get_cylinder_normal(t_cylinder *cyl, t_ray r, t_hit_record *rec);
 t_color get_final_pixel_color(t_scene *s, t_ray r, t_hit_record *rec);
 void    init_hit_record(t_hit_record *rec);
 
@@ -181,6 +188,8 @@ t_color light_objects(t_scene *s, t_ray r, void *object, int object_type, t_poin
 t_amb *amb(float i, t_color color);
 t_color color_add(t_color c1, t_color c2);
 double clamp(double value, double min, double max);
+bool is_object_blocked(t_scene *s, t_ray shadow_ray, double t_max);
+
 void check_cylinder_hits(t_scene *s, t_ray r, t_hit_record *rec);
 void check_plane_hits(t_scene *s, t_ray r, t_hit_record *rec);
 void check_sphere_hits(t_scene *s, t_ray r, t_hit_record *rec);

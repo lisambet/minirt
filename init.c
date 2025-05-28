@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:46:11 by lisambet          #+#    #+#             */
-/*   Updated: 2025/05/20 14:34:26 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/05/28 18:20:35 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	init_scene_objects(t_scene *s)
 	s->planes = my_plane;
 	my_sphere = sphere(vec(-2, -0.5, -2), 0.5, vec(0, 255, 0));
 	s->spheres = my_sphere;
-	my_cylinder = cylinder(vec(-0.5, 1, -2), vec(0, 0, 1), 0.5, 1, vec(255, 0, 0));
+	my_cylinder = cylinder(vec(-0.5, -0.5, -2), vec(0, 0, 1), 0.5, 0.5, vec(255, 0, 0));
 	s->cylinders = my_cylinder;
-	my_light = light(vec(1, 0, 0), 1, vec(255, 255, 255));
+	my_light = light(vec(1, 1, 0), 1, vec(255, 255, 255));
 	s->lights = my_light;
 	my_amb = amb(0.2, vec(255, 255, 255));
 	s->amb = my_amb;

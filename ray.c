@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:27:41 by lisambet          #+#    #+#             */
-/*   Updated: 2025/05/20 14:46:31 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/05/28 17:29:53 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ t_point	ray_at(t_ray r, double t)
 
 void check_sphere_hits(t_scene *s, t_ray r, t_hit_record *rec)
 {
-    t_sphere *sphere = s->spheres;
+    t_sphere *sphere; //correct
     double current_t;
 
+	sphere = s->spheres;
     while (sphere)
     {
         if (hit_sphere(sphere, r, &current_t) && current_t > 0.001 && current_t < rec->t)
@@ -56,9 +57,10 @@ void check_sphere_hits(t_scene *s, t_ray r, t_hit_record *rec)
 
 void check_plane_hits(t_scene *s, t_ray r, t_hit_record *rec)
 {
-    t_plane *plane = s->planes;
+    t_plane *plane;
     double current_t;
 
+	plane = s->planes;
     while (plane)
     {
         if (hit_plane(plane, r, &current_t) && current_t > 0.001 && current_t < rec->t)
@@ -76,10 +78,11 @@ void check_plane_hits(t_scene *s, t_ray r, t_hit_record *rec)
 
 void check_cylinder_hits(t_scene *s, t_ray r, t_hit_record *rec)
 {
-    t_cylinder *cylinder = s->cylinders;
+    t_cylinder *cylinder;
     double current_t;
 	int hit_type; 
 
+	cylinder = s->cylinders;
     while (cylinder)
     {
         if (hit_cylinder(cylinder, r, &current_t, &hit_type) && current_t > 0.001 && current_t < rec->t)
