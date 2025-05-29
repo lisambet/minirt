@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:21:36 by lisambet          #+#    #+#             */
-/*   Updated: 2025/05/28 18:17:38 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/05/29 10:51:23 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ t_color light_objects(t_scene *s, t_ray r, void *object, int object_type, t_poin
 t_amb *amb(float i, t_color color);
 t_color color_add(t_color c1, t_color c2);
 double clamp(double value, double min, double max);
-bool is_object_blocked(t_scene *s, t_ray shadow_ray, double t_max);
+bool is_blocked(t_scene *s, t_ray shadow_ray, double t_max);
 
 void check_cylinder_hits(t_scene *s, t_ray r, t_hit_record *rec);
 void check_plane_hits(t_scene *s, t_ray r, t_hit_record *rec);

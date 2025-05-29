@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:27:41 by lisambet          #+#    #+#             */
-/*   Updated: 2025/05/28 17:29:53 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/05/29 10:57:39 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_point	ray_at(t_ray r, double t)
 
 void check_sphere_hits(t_scene *s, t_ray r, t_hit_record *rec)
 {
-    t_sphere *sphere; //correct
+    t_sphere *sphere;
     double current_t;
 
 	sphere = s->spheres;

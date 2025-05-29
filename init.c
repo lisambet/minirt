@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:46:11 by lisambet          #+#    #+#             */
-/*   Updated: 2025/05/28 18:20:35 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/05/29 10:54:56 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 void	init_scene_objects(t_scene *s)
 {
 	t_sphere	*my_sphere;
+	t_sphere	*my_sphere2;
 	t_plane		*my_plane;
 	t_cylinder	*my_cylinder;
 	t_lgt		*my_light;
+	t_lgt		*my_light2;
 	t_amb		*my_amb;
 
 	s->spheres = NULL;
@@ -27,11 +29,19 @@ void	init_scene_objects(t_scene *s)
 	s->amb = NULL;
 	my_plane = plane(vec(-1, -2, -2), vec(0, 1, 0), vec(0, 0, 225));
 	s->planes = my_plane;
-	my_sphere = sphere(vec(-2, -0.5, -2), 0.5, vec(0, 255, 0));
+	my_sphere = sphere(vec(-2, -0.5, -2), 0.5, vec(255, 255, 255));
+	my_sphere->next = NULL;
+	my_sphere2 = sphere(vec(0.5, -0.5, -2), 0.5, vec(255, 255, 255));
+	my_sphere2->next = NULL;
+	my_sphere->next = my_sphere2;
 	s->spheres = my_sphere;
-	my_cylinder = cylinder(vec(-0.5, -0.5, -2), vec(0, 0, 1), 0.5, 0.5, vec(255, 0, 0));
+	my_cylinder = cylinder(vec(-0.5, -0.5, -2), vec(0, 1, 0), 0.8, 1, vec(255, 255, 255));
 	s->cylinders = my_cylinder;
-	my_light = light(vec(1, 1, 0), 1, vec(255, 255, 255));
+	my_light = light(vec(2.0, 5.0, 1), 0.7, vec(0, 0, 255));
+	my_light->next = NULL; 
+	my_light2 = light(vec(-3.0, 4.0, 2), 0.7, vec(255, 0, 0));
+	my_light2->next = NULL;
+	my_light->next = my_light2; 
 	s->lights = my_light;
 	my_amb = amb(0.2, vec(255, 255, 255));
 	s->amb = my_amb;

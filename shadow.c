@@ -6,13 +6,13 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 18:04:11 by lisambet          #+#    #+#             */
-/*   Updated: 2025/05/28 18:22:04 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/05/29 10:51:23 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-bool is_object_blocked(t_scene *s, t_ray shadow_ray, double t_max)
+bool is_blocked(t_scene *s, t_ray shadow_ray, double t_max)
 {
     double current_t;
 

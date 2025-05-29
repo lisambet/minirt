@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 19:31:44 by lisambet          #+#    #+#             */
-/*   Updated: 2025/05/28 18:19:04 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/05/29 10:51:23 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,37 +41,52 @@ t_amb *amb(float i, t_color color)
 	return (new);
 }
 
-t_color	calculate_direct_color(t_scene *s, t_color object_color,
-			t_vec normal, t_point intersection_point)
+t_color get_single_light(t_scene *s, t_lgt *light, t_color object_color,
+                                       t_vec normal, t_point intersection_point)
 {
-	t_color	direct_lighting;
-	t_lgt	*light;
-	t_vec	light_dir;
-	double	diffuse_factor;
-	t_vec vec_to_light;
-	t_ray   shadow_ray;
-    double  dist_to_light;  
+    t_vec   vec_to_light;
+    t_vec   light_dir;
+    double  dist_to_light;
+    t_ray   shadow_ray;
+    double  diffuse_factor;
 
-	direct_lighting = (t_color){0, 0, 0};
-	light = s->lights;
-	if (light)
-	{
-		vec_to_light = vec_sub(light->vtx, intersection_point);
-		light_dir = vec_normalize(vec_sub(light->vtx, intersection_point));
-		dist_to_light = vec_length(vec_to_light);
-		shadow_ray.orig = vec_add(intersection_point, vec_mul(normal, SHADOW_BIAS));
-        shadow_ray.dir = light_dir;
-        if (is_object_blocked(s, shadow_ray, dist_to_light))
-            return (direct_lighting);
-		diffuse_factor = fmax(vec_dot(normal, light_dir), 0.0);
-		direct_lighting.x = object_color.x
-			* light->color.x * diffuse_factor * light->i;
-		direct_lighting.y = object_color.y
-			* light->color.y * diffuse_factor * light->i;
-		direct_lighting.z = object_color.z
-			* light->color.z * diffuse_factor * light->i;
-	}
-	return (direct_lighting);
+    vec_to_light = vec_sub(light->vtx, intersection_point);
+    light_dir = vec_normalize(vec_to_light);
+    dist_to_light = vec_length(vec_to_light);
+
+    shadow_ray.orig = vec_add(intersection_point, vec_mul(normal, SHADOW_BIAS));
+    shadow_ray.dir = light_dir;
+
+    if (is_blocked(s, shadow_ray, dist_to_light))
+        return ((t_color){0,0,0});
+
+    diffuse_factor = fmax(vec_dot(normal, light_dir), 0.0);
+
+    return ((t_color){
+        object_color.x * light->color.x * diffuse_factor * light->i,
+        object_color.y * light->color.y * diffuse_factor * light->i,
+        object_color.z * light->color.z * diffuse_factor * light->i
+    });
+}
+
+
+t_color calculate_direct_color(t_scene *s, t_color object_color,
+            t_vec normal, t_point intersection_point)
+{
+    t_color direct_lighting;
+    t_lgt   *current_light;
+
+    direct_lighting = (t_color){0, 0, 0};
+    current_light = s->lights;
+
+    while (current_light)
+    {
+        direct_lighting = color_add(direct_lighting,
+            get_single_light(s, current_light, object_color,
+                                          normal, intersection_point));
+        current_light = current_light->next;
+    }
+    return (direct_lighting);
 }
 
 t_color	calculate_ambient_color(t_scene *s, t_color object_color)
