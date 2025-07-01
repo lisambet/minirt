@@ -66,28 +66,26 @@ void	init_camera(t_scene *s)
 			vec(0, 0, s->camera.zoom));
 }
 
-t_scene	init_scene(void)
+void	init_scene(t_scene *s)
 {
-	t_scene	s;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
 
-	init_scene_objects(&s);
-	s.mlx = mlx_init();
-	if (!s.mlx)
+	init_scene_objects(s);
+	s->mlx = mlx_init();
+	if (!s->mlx)
 		exit(error_exit("Failed to initialize mlx"));
-	s.win = mlx_new_window(s.mlx, WIDTH, HEIGHT, "minirt");
-	if (!s.win)
-		exit(cleanup_mlx(&s, "Failed to create window"));
-	s.img = mlx_new_image(s.mlx, WIDTH, HEIGHT);
-	if (!s.img)
-		exit(cleanup_window(&s, "Failed to create image"));
-	s.data = (int *)mlx_get_data_addr(s.img, &bits_per_pixel,
+	s->win = mlx_new_window(s->mlx, WIDTH, HEIGHT, "minirt");
+	if (!s->win)
+		exit(cleanup_mlx(s, "Failed to create window"));
+	s->img = mlx_new_image(s->mlx, WIDTH, HEIGHT);
+	if (!s->img)
+		exit(cleanup_window(s, "Failed to create image"));
+	s->data = (int *)mlx_get_data_addr(s->img, &bits_per_pixel,
 			&line_length, &endian);
-	init_camera(&s);
-	events_init(&s);
-	return (s);
+	init_camera(s);
+	events_init(s);
 }
 
 void    init_hit_record(t_hit_record *rec)
@@ -99,10 +97,30 @@ void    init_hit_record(t_hit_record *rec)
 	rec->hit_type = 0;
 }
 
+#define SCALEDOWN 20
+
+void	draw_blocks(t_scene *s, size_t x, size_t y, t_color color)
+{
+	size_t	tx;
+	size_t	ty;
+
+	ty = 0;
+	while (ty < (size_t)SCALEDOWN && ty + y < (size_t)HEIGHT)
+	{
+		tx = 0;
+		while (tx < (size_t)SCALEDOWN && tx + x < (size_t)WIDTH)
+		{
+			s->data[(y + ty) * WIDTH + (x + tx)] = get_color_int(color);
+			tx++;
+		}
+		ty++;
+	}
+}
+
 void render(t_scene *s)
 {
-	int x;
-	int y;
+	size_t x;
+	size_t y;
 	double u;
 	double v;
 	t_ray r;
@@ -123,10 +141,10 @@ void render(t_scene *s)
 								s->origin);
 			r = ray(s->origin, direction);
 			color = ray_color(s,r);
-			s->data[y * WIDTH + x] = get_color_int(color);
-			x++;
+			draw_blocks(s, x, y, color);
+			x += SCALEDOWN;
 		}
-		y++;
+		y += SCALEDOWN;
 	}
 	printf("Done rendering image.\n");
 }

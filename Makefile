@@ -1,4 +1,4 @@
-NAME = minirt
+NAME = miniRT
 
 SRCS = main.c \
 	ray.c \
@@ -17,8 +17,8 @@ SRCS = main.c \
 OBJS = $(SRCS:.c=.o)
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I ./minilibx-linux
-LDFLAGS = -L ./minilibx-linux -lmlx -lXext -lX11 -lm
+CFLAGS = -Wall -Wextra -Werror -I minilibx-linux
+LDFLAGS = -L minilibx-linux -lmlx -lXext -lX11 -lm
 
 all: $(NAME)
 

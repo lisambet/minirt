@@ -139,7 +139,7 @@ typedef struct s_ray
 } t_ray;
 
 
-t_scene	init_scene(void);
+void	init_scene(t_scene *s);
 void	render(t_scene *s);
 
 t_vec vec(double x, double y, double z);
