@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:46:11 by lisambet          #+#    #+#             */
-/*   Updated: 2025/05/29 10:54:56 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/02 19:50:39 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,6 @@ void    init_hit_record(t_hit_record *rec)
     rec->hit = 0;
 	rec->hit_type = 0;
 }
-
-#define SCALEDOWN 20
 
 void	draw_blocks(t_scene *s, size_t x, size_t y, t_color color)
 {

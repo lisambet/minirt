@@ -4,6 +4,7 @@ SRCS = main.c \
 	ray.c \
 	vec1.c \
 	vec2.c \
+	vec3.c \
 	init.c \
 	events.c \
 	objects.c \
@@ -13,6 +14,7 @@ SRCS = main.c \
 	hit_cylinder.c \
 	get_normal.c \
 	shadow.c \
+	free.c \
 
 OBJS = $(SRCS:.c=.o)
 

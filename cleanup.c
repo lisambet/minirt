@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:37:09 by lisambet          #+#    #+#             */
-/*   Updated: 2025/05/07 19:37:24 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/02 12:46:59 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,3 +32,18 @@ int	cleanup_mlx(t_scene *s, char *msg)
 	free(s->mlx);
 	return (error_exit(msg));
 }
+
+void cleanup_scene_data(t_scene *s)
+{
+    if (s->spheres)
+        free_spheres(s->spheres);
+    if (s->planes)
+        free_planes(s->planes);
+    if (s->cylinders)
+        free_cylinders(s->cylinders);
+    if (s->lights)
+        free_lights(s->lights);
+    if (s->amb)
+        free(s->amb);
+}
+

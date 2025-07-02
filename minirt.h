@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:21:36 by lisambet          #+#    #+#             */
-/*   Updated: 2025/05/29 10:51:23 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/02 19:44:33 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 #define WIDTH 1600
 #define HEIGHT 900
 #define SHADOW_BIAS 0.001
+#define SCALEDOWN 10
+// #define MOVE_SPEED 1.0
+// #define ROTATION_ANGLE 10.0 
 
 
 typedef struct s_vec
@@ -43,6 +46,7 @@ typedef struct s_camera
 	t_vec dir;
 	double	zoom;
 	t_vec	look_dir;
+	t_vec   up_vec; 
 	
 } t_camera;
 
@@ -94,7 +98,8 @@ typedef struct s_hit_record
 	void    *object_ptr; 
 	int     object_type;
 	int     hit;  
-	int hit_type;       
+	int hit_type;     
+	t_vec   normal;  
 } t_hit_record;
 
 enum e_object_type {
@@ -138,6 +143,7 @@ typedef struct s_ray
 	t_vec dir;
 } t_ray;
 
+void recalculate_camera_basis(t_scene *s);
 
 void	init_scene(t_scene *s);
 void	render(t_scene *s);
@@ -150,9 +156,11 @@ t_vec vec_div(t_vec a, double t);
 t_vec vec_neg(t_vec v);
 double vec_length(t_vec v);
 double vec_length_sq(t_vec v);
-t_vec vec_unit(t_vec v);
 double vec_dot(t_vec a, t_vec b);
 t_vec vec_normalize(t_vec v);
+t_vec vec_cross(t_vec a, t_vec b);
+t_vec rotate_vector(t_vec v, t_vec axis, double angle_degrees);
+double	get_m_projection(t_cylinder *cyl, t_ray r, double t);
 
 double	get_m_projection(t_cylinder *cyl, t_ray r, double t);
 void	get_cyl_eq_coefficients(t_cylinder *cyl, t_ray r, double *a, double *b, double *c);
@@ -167,6 +175,12 @@ void events_init(t_scene *s);
 int key_press(int keycode, t_scene *s);
 int close_window(t_scene *s);
 
+void free_spheres(t_sphere *head);
+void free_planes(t_plane *head);
+void free_cylinders(t_cylinder *head);
+void free_lights(t_lgt *head);
+void cleanup_scene_data(t_scene *s);
+
 
 t_sphere *sphere(t_point center, double radius, t_color color);
 t_plane *plane(t_point p0, t_vec normal, t_color color);
@@ -175,7 +189,6 @@ t_cylinder *cylinder(t_point p0, t_vec normal, double radius, double height, t_c
 bool hit_sphere(t_sphere *sphere, t_ray r, double *t_out);
 bool hit_plane(t_plane *plane, t_ray r, double *t_out);
 bool	hit_cylinder_side(t_cylinder *cyl, t_ray r, double *t_side);
-bool	hit_cylinder_cap(t_cylinder *cyl, t_ray r, double *t_cap, double t_side);
 bool hit_cylinder(t_cylinder *cyl, t_ray r, double *t_out, int *hit_type);
 
 t_vec get_hit_object_normal(t_ray r, t_hit_record *rec);
