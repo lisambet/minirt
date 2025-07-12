@@ -6,10 +6,11 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 16:36:41 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/07/12 03:07:25 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/12 15:22:07 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minirt.h"
 
 char	**list_to_tab(t_list *lst)
@@ -81,33 +82,33 @@ char	**get_input(int fd)
 	return (tab);
 }
 
-t_data	error_data(t_data data, char *str)
+t_scene	error_scene(t_scene scene, char *str)
 {
 	ft_printerror(str);
-	data.error = 1;
-	return (data);
+	scene.error = 1;
+	return (scene);
 }
 
-t_data	setup_data(char *file, int len)
+t_scene	setup_scene(char *file, int len)
 {
-	t_data	data;
+	t_scene	scene;
 	int		fd;
 
-	prefill_data(&data);
+	prefill_scene(&scene);
 	if (len < 3 || ft_strncmp(&file[len - 3], ".rt", 3))
-		return (error_data(data, "File has invalid format, must end with .rt"));
+		return (error_scene(scene, "File has invalid format, must end with .rt"));
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		return (error_data(data, "Invalid file"));
-	data.input = get_input(fd);
-	if (!data.input)
-		return (error_data(data, "File couldn't be parsed."));
-	data = fill_data(&data, 0);
-	if (data.error && data.input)
+		return (error_scene(scene, "Invalid file"));
+	scene.input = get_input(fd);
+	if (!scene.input)
+		return (error_scene(scene, "File couldn't be parsed."));
+	fill_scene(&scene);
+	if (scene.error && scene.input)
 	{
-		ft_tabfree(data.input, ft_tablen(data.input));
-		data.input = NULL;
+		ft_tabfree(scene.input, ft_tablen(scene.input));
+		scene.input = NULL;
 	}
 	close(fd);
-	return (data);
+	return (scene);
 }

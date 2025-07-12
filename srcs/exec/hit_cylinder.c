@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 17:10:40 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/12 02:50:54 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/12 15:35:06 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ bool    hit_cylinder_side(t_cylinder *cyl, t_ray r, double *t_side)
 	return (*t_side > 0);
 }
 
-
 bool hit_cylinder_top_cap(t_cylinder *cyl, t_ray r, double *t_top_cap, double t_side_closest, double t_base_cap_closest)
 {
 	t_vec   n;
@@ -61,7 +60,7 @@ bool hit_cylinder_top_cap(t_cylinder *cyl, t_ray r, double *t_top_cap, double t_
 		p = ray_at(r, t);
 		if (t >= 0.001 && (t < t_side_closest || t_side_closest < 0)
 			&& (t < t_base_cap_closest || t_base_cap_closest < 0)
-			&& vec_length_sq(vec_sub(p, top_center)) <= (cyl->radius * cyl->radius) + 1e-6)
+			&& vec_length_sq(vec_sub(p, top_center)) <= (cyl->diameter * cyl->diameter) + 1e-6)
 		{
 			*t_top_cap = t;
 			return (true);
@@ -86,7 +85,7 @@ bool hit_cylinder_base_cap(t_cylinder *cyl, t_ray r, double *t_base_cap, double 
 		t = vec_dot(vec_sub(cyl->p0, r.orig), vec_neg(n)) / denom;
 		p = ray_at(r, t);
 		if (t >= 0.001 && (t < t_side_closest || t_side_closest < 0)
-			&& vec_length_sq(vec_sub(p, cyl->p0)) <= (cyl->radius * cyl->radius) + 1e-6)
+			&& vec_length_sq(vec_sub(p, cyl->p0)) <= (cyl->diameter * cyl->diameter) + 1e-6)
 		{
 			*t_base_cap = t;
 			return (true);

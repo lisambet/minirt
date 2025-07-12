@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 22:26:44 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/07/12 03:20:13 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/12 15:01:20 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_cylinderclear(t_cylinder **cylinder)
 	}
 }
 
-t_cylinder	*ft_cylindernew(t_point coords, t_point vector,
+t_cylinder	*ft_cylindernew(t_point coords, t_vec vector,
 	double *values, t_color rgb)
 {
 	t_cylinder	*cylinder;
@@ -50,9 +50,9 @@ t_cylinder	*ft_cylindernew(t_point coords, t_point vector,
 	cylinder = malloc(sizeof(t_cylinder));
 	if (!cylinder)
 		return (NULL);
-	cylinder->vtx = coords;
-	cylinder->axis = vector;
-	cylinder->radius = values[0];
+	cylinder->p0 = coords;
+	cylinder->normal = vector;
+	cylinder->diameter = values[0];
 	cylinder->height = values[1];
 	cylinder->color = rgb;
 	cylinder->next = NULL;

@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 15:39:28 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/07/12 03:29:00 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/12 15:23:26 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,63 +26,64 @@ int	input_atodable(char **tab)
 	return (1);
 }
 
-void	fill_objects(t_data *data, char *tmp)
+void	fill_objects(t_scene *scene, char *tmp)
 {
 	if (!ft_strncmp(tmp, "A ", 2))
-		parse_ambient(tmp, data);
+		parse_ambient(tmp, scene);
 	else if (!ft_strncmp(tmp, "C ", 2))
-		parse_camera(tmp, data);
+		parse_camera(tmp, scene);
 	else if (!ft_strncmp(tmp, "L ", 2))
-		parse_diffuse(tmp, data);
+		parse_diffuse(tmp, scene);
 	else if (!ft_strncmp(tmp, "sp ", 2))
-		parse_sphere(tmp, data);
+		parse_sphere(tmp, scene);
 	else if (!ft_strncmp(tmp, "pl ", 2))
-		parse_plane(tmp, data);
+		parse_plane(tmp, scene);
 	else if (!ft_strncmp(tmp, "cy ", 2))
-		parse_cylinder(tmp, data);
+		parse_cylinder(tmp, scene);
 	else
-		data->error = 1;
+		scene->error = 1;
 }
 
-void	prefill_data(t_data *data)
+void	prefill_scene(t_scene *scene)
 {
-	data->error = 0;
-	data->ambient.enabled = 0;
-	data->ambient.i = 0;
-	data->ambient.color = (t_color){0, 0, 0};
-	data->light.i = 0;
-	data->light.color = (t_color){0, 0, 0};
-	data->light.vtx = (t_vec){0, 0, 0};
-	data->light.enabled = 0;
-	data->camera.enabled = 0;
-	data->sphere = NULL;
-	data->plane = NULL;
-	data->cylinder = NULL;
-	data->input = NULL;
+	scene->error = 0;
+	scene->amb.enabled = 0;
+	scene->amb.i = 0;
+	scene->amb.color = (t_color){0, 0, 0};
+	scene->light.i = 0;
+	scene->light.color = (t_color){0, 0, 0};
+	scene->light.vtx = (t_vec){0, 0, 0};
+	scene->light.enabled = 0;
+	scene->camera.enabled = 0;
+	scene->spheres = NULL;
+	scene->planes = NULL;
+	scene->cylinders = NULL;
+	scene->input = NULL;
 }
 
-t_data	fill_data(t_data *data, int i)
+void	fill_scene(t_scene *scene)
 {
 	char	**tmp;
+	int		i;
 
-	tmp = ft_tabdup(data->input, ft_tablen(data->input));
-	while (tmp && tmp[i] && !data->error)
+	i = 0;
+	tmp = ft_tabdup(scene->input, ft_tablen(scene->input));
+	while (tmp && tmp[i] && !scene->error)
 	{
 		tmp[i] = ft_strtrim(tmp[i], ' ');
 		tmp[i] = ft_strreplace(tmp[i], '\t', ' ');
 		if (!tmp[i])
 		{
-			ft_tabfree(tmp, ft_tablen(data->input));
-			data->error = 1;
-			return (*data);
+			ft_tabfree(tmp, ft_tablen(scene->input));
+			scene->error = 1;
+			return ;
 		}
-		fill_objects(data, tmp[i]);
+		fill_objects(scene, tmp[i]);
 		i++;
 	}
-	ft_tabfree(data->input, ft_tablen(data->input));
-	data->input = tmp;
-	check_values(data);
-	if (data->error)
+	ft_tabfree(scene->input, ft_tablen(scene->input));
+	scene->input = tmp;
+	check_values(scene);
+	if (scene->error)
 		ft_printerror("Objects are not valid.");
-	return (*data);
 }

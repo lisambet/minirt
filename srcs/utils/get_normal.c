@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 11:01:47 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/12 02:50:52 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/12 15:06:27 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ t_color color_add(t_color c1, t_color c2)
 {
 	t_color result;
 
-	result.x = c1.x + c2.x;
-	result.y = c1.y + c2.y;
-	result.z = c1.z + c2.z;
-	result.x = clamp(result.x, 0.0, 1.0); //maybe put 0.1 in intensity as minimum 
-	result.y = clamp(result.y, 0.0, 1.0);
-	result.z = clamp(result.z, 0.0, 1.0);
+	result.red = c1.red + c2.red;
+	result.green = c1.green + c2.green;
+	result.blue = c1.blue + c2.blue;
+	result.red = clamp(result.red, 0.0, 1.0); //maybe put 0.1 in intensity as minimum 
+	result.green = clamp(result.green, 0.0, 1.0);
+	result.blue = clamp(result.blue, 0.0, 1.0);
 	return result;
 }
 

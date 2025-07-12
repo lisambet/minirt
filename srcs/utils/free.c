@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 12:07:21 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/12 03:22:00 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/12 14:16:13 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,13 @@ void free_lights(t_lgt *head)
 	}
 }
 
-int	free_structs(t_data data)
+int	free_structs(t_scene scene)
 {
-	if (data.sphere)
-		ft_sphereclear(&data.sphere);
-	if (data.plane)
-		ft_planeclear(&data.plane);
-	if (data.cylinder)
-		ft_cylinderclear(&data.cylinder);
+	if (scene.spheres)
+		ft_sphereclear(&scene.spheres);
+	if (scene.planes)
+		ft_planeclear(&scene.planes);
+	if (scene.cylinders)
+		ft_cylinderclear(&scene.cylinders);
 	return (1);
 }

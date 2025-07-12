@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 14:31:50 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/07/12 03:15:10 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/12 15:08:57 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,29 +35,29 @@ static int	objects_valid(t_plane *pl, t_cylinder *cy)
 	}
 	while (cy)
 	{
-		if (!vec_valid(cy->axis))
+		if (!vec_valid(cy->normal))
 			return (0);
 		cy = cy->next;
 	}
 	return (1);
 }
 
-void	check_values(t_data *data)
+void	check_values(t_scene *scene)
 {
 	t_plane		*tmp_pl;
 	t_cylinder	*tmp_cy;
 
-	if (!data->input)
+	if (!scene->input)
 	{
-		data->error = 1;
+		scene->error = 1;
 		return ;
 	}
-	tmp_pl = data->plane;
-	tmp_cy = data->cylinder;
-	if ((data->ambient.enabled && !ratio_valid(data->ambient.i))
-		|| (data->camera.enabled && (!vec_valid(data->camera.dir)
-				|| data->camera.zoom > 180))
-		|| (data->light.enabled && !ratio_valid(data->light.i))
+	tmp_pl = scene->planes;
+	tmp_cy = scene->cylinders;
+	if ((scene->amb.enabled && !ratio_valid(scene->amb.i))
+		|| (scene->camera.enabled && (!vec_valid(scene->camera.dir)
+				|| scene->camera.fov > 180))
+		|| (scene->light.enabled && !ratio_valid(scene->light.i))
 		|| !objects_valid(tmp_pl, tmp_cy))
-		data->error = 1;
+		scene->error = 1;
 }

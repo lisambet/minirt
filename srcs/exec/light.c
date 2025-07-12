@@ -3,90 +3,72 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 19:31:44 by lisambet          #+#    #+#             */
-/*   Updated: 2025/05/29 10:51:23 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/12 15:38:11 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_lgt *light(t_point vtx, float i, t_color color)
+t_lgt	light(t_point vtx, float i, t_color color)
 {
-	t_lgt	*new;
+	t_lgt	new;
 
-	new = malloc(sizeof(t_lgt));
-	if (!new)
-		return (NULL);
-	new->vtx = vtx;
-	new->i = i;
-	new->color.x = color.x / 255.0;
-	new->color.y = color.y / 255.0;
-	new->color.z = color.z / 255.0;
-	new->next = NULL;
-	return (new);
-}
-t_amb *amb(float i, t_color color)
-{
-	t_amb	*new;
-
-	new = malloc(sizeof(t_amb));
-	if (!new)
-		return (NULL);
-	new->i = i;
-	new->color.x = color.x / 255.0;
-	new->color.y = color.y / 255.0;
-	new->color.z = color.z / 255.0;
+	new.vtx = vtx;
+	new.i = i;
+	new.color = color;
+	new.next = NULL;
 	return (new);
 }
 
-t_color get_single_light(t_scene *s, t_lgt *light, t_color object_color,
-                                       t_vec normal, t_point intersection_point)
+t_amb	amb(float i, t_color color)
 {
-    t_vec   vec_to_light;
-    t_vec   light_dir;
-    double  dist_to_light;
-    t_ray   shadow_ray;
-    double  diffuse_factor;
+	t_amb	new;
 
-    vec_to_light = vec_sub(light->vtx, intersection_point);
-    light_dir = vec_normalize(vec_to_light);
-    dist_to_light = vec_length(vec_to_light);
-
-    shadow_ray.orig = vec_add(intersection_point, vec_mul(normal, SHADOW_BIAS));
-    shadow_ray.dir = light_dir;
-
-    if (is_blocked(s, shadow_ray, dist_to_light))
-        return ((t_color){0,0,0});
-
-    diffuse_factor = fmax(vec_dot(normal, light_dir), 0.0);
-
-    return ((t_color){
-        object_color.x * light->color.x * diffuse_factor * light->i,
-        object_color.y * light->color.y * diffuse_factor * light->i,
-        object_color.z * light->color.z * diffuse_factor * light->i
-    });
+	new.i = i;
+	new.color = color;
+	new.enabled = 1;
+	return (new);
 }
 
-
-t_color calculate_direct_color(t_scene *s, t_color object_color,
-            t_vec normal, t_point intersection_point)
+t_color	get_single_light(t_scene *s, t_lgt light, t_color object_color,
+							t_vec normal, t_point intersection_point)
 {
-    t_color direct_lighting;
-    t_lgt   *current_light;
+	t_vec	vec_to_light;
+	t_vec	light_dir;
+	double	dist_to_light;
+	t_ray	shadow_ray;
+	double	diffuse_factor;
 
-    direct_lighting = (t_color){0, 0, 0};
-    current_light = s->lights;
+	vec_to_light = vec_sub(light.vtx, intersection_point);
+	light_dir = vec_normalize(vec_to_light);
+	dist_to_light = vec_length(vec_to_light);
+	shadow_ray.orig = vec_add(intersection_point, vec_mul(normal, SHADOW_BIAS));
+	shadow_ray.dir = light_dir;
+	if (is_blocked(s, shadow_ray, dist_to_light))
+		return ((t_color){0,0,0});
+	diffuse_factor = fmax(vec_dot(normal, light_dir), 0.0);
+	return ((t_color){
+		object_color.red * light.color.red * diffuse_factor * light.i,
+		object_color.green * light.color.green * diffuse_factor * light.i,
+		object_color.blue * light.color.blue * diffuse_factor * light.i
+	});
+}
 
-    while (current_light)
-    {
-        direct_lighting = color_add(direct_lighting,
-            get_single_light(s, current_light, object_color,
-                                          normal, intersection_point));
-        current_light = current_light->next;
-    }
-    return (direct_lighting);
+t_color	calculate_direct_color(t_scene *s, t_color object_color,
+			t_vec normal, t_point intersection_point)
+{
+	t_color	direct_lighting;
+	t_lgt	current_light;
+
+	direct_lighting = (t_color){0, 0, 0};
+	current_light = s->light;
+	direct_lighting = color_add(direct_lighting,
+		get_single_light(s, current_light, object_color,
+										normal, intersection_point));
+	return (direct_lighting);
 }
 
 t_color	calculate_ambient_color(t_scene *s, t_color object_color)
@@ -94,34 +76,32 @@ t_color	calculate_ambient_color(t_scene *s, t_color object_color)
 	t_color	ambient_lighting;
 
 	ambient_lighting = (t_color){0, 0, 0};
-	if (s->amb)
+	if (s->amb.enabled)
 	{
-		ambient_lighting.x = object_color.x
-			* s->amb->color.x * s->amb->i;
-		ambient_lighting.y = object_color.y
-			* s->amb->color.y * s->amb->i;
-		ambient_lighting.z = object_color.z
-			* s->amb->color.z * s->amb->i;
+		ambient_lighting.red = object_color.red
+			* s->amb.color.red * s->amb.i;
+		ambient_lighting.green = object_color.green
+			* s->amb.color.green * s->amb.i;
+		ambient_lighting.blue = object_color.blue
+			* s->amb.color.blue * s->amb.i;
 	}
 	return (ambient_lighting);
 }
 
-
-t_color get_final_pixel_color(t_scene *s, t_ray r, t_hit_record *rec)
+t_color	get_final_pixel_color(t_scene *s, t_ray r, t_hit_record *rec)
 {
-    t_vec   normal;
-    t_color object_color;
-    t_color ambient_lighting;
-    t_color direct_lighting;
-    t_color final_color;
+	t_vec	normal;
+	t_color	object_color;
+	t_color	ambient_lighting;
+	t_color	direct_lighting;
+	t_color	final_color;
 
-    object_color = rec->color;
-    normal = get_hit_object_normal(r, rec);
-    ambient_lighting = calculate_ambient_color(s, object_color);
-    direct_lighting = calculate_direct_color(s, object_color, normal, rec->p);
-    final_color = color_add(ambient_lighting, direct_lighting);
-
-    return final_color;
+	object_color = rec->color;
+	normal = get_hit_object_normal(r, rec);
+	ambient_lighting = calculate_ambient_color(s, object_color);
+	direct_lighting = calculate_direct_color(s, object_color, normal, rec->p);
+	final_color = color_add(ambient_lighting, direct_lighting);
+	return (final_color);
 }
 
 int	get_color_int(t_color c)
@@ -130,25 +110,22 @@ int	get_color_int(t_color c)
 	int	g;
 	int	b;
 
-	r = (int)(255.999 * c.x);
-	g = (int)(255.999 * c.y);
-	b = (int)(255.999 * c.z);
+	r = (int)(255.999 * c.red);
+	g = (int)(255.999 * c.green);
+	b = (int)(255.999 * c.blue);
 	return ((r << 16) | (g << 8) | b);
 }
 
-t_color ray_color(t_scene *s, t_ray r)
+t_color	ray_color(t_scene *s, t_ray r)
 {
-    t_hit_record rec;
+	t_hit_record	rec;
 
-    init_hit_record(&rec);
-
-    check_sphere_hits(s, r, &rec);
-    check_plane_hits(s, r, &rec);
-    check_cylinder_hits(s, r, &rec);
-
-    if (rec.hit)
-        return get_final_pixel_color(s, r, &rec);
-    else
-        return (t_color){0, 0, 0};
-
+	init_hit_record(&rec);
+	check_sphere_hits(s, r, &rec);
+	check_plane_hits(s, r, &rec);
+	check_cylinder_hits(s, r, &rec);
+	if (rec.hit)
+		return (get_final_pixel_color(s, r, &rec));
+	else
+		return ((t_color){0, 0, 0});
 }

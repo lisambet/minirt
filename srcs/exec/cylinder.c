@@ -6,13 +6,13 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 09:36:03 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/12 02:50:47 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/12 15:08:01 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_cylinder *cylinder(t_point p0, t_vec normal, double radius, double height, t_color color)
+t_cylinder *cylinder(t_point p0, t_vec normal, double diameter, double height, t_color color)
 {
 	t_cylinder *new;
 
@@ -21,11 +21,11 @@ t_cylinder *cylinder(t_point p0, t_vec normal, double radius, double height, t_c
 		return (NULL);
 	new->p0 = p0;
 	new->normal = normal;
-	new->radius = radius;
+	new->diameter = diameter;
 	new->height = height;
-	new->color.x = color.x / 255.0;
-	new->color.y = color.y / 255.0;
-	new->color.z = color.z / 255.0;
+	new->color.red = color.red / 255.0;
+	new->color.green = color.green / 255.0;
+	new->color.blue = color.blue / 255.0;
 	new->next = NULL;
 	return (new);
 }
@@ -63,7 +63,7 @@ void	get_cyl_eq_coefficients(t_cylinder *cyl, t_ray r, double *a, double *b, dou
 	d = r.dir;
 	*a = vec_dot(d, d) - pow(vec_dot(d, n), 2);
 	*b = 2.0 * (vec_dot(d, oc) - vec_dot(d, n) * vec_dot(oc, n));
-	*c = vec_dot(oc, oc) - pow(vec_dot(oc, n), 2) - cyl->radius * cyl->radius;
+	*c = vec_dot(oc, oc) - pow(vec_dot(oc, n), 2) - cyl->diameter * cyl->diameter;
 }
 
 double	get_m_projection(t_cylinder *cyl, t_ray r, double t)

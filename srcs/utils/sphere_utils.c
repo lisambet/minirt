@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 22:26:44 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/07/12 03:21:17 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/12 14:59:57 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_sphere	*ft_spherenew(t_point coords, double diameter, t_color rgb)
 	if (!sphere)
 		return (NULL);
 	sphere->center = coords;
-	sphere->radius = diameter;
+	sphere->diameter = diameter;
 	sphere->color = rgb;
 	sphere->next = NULL;
 	return (sphere);

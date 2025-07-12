@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 22:26:44 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/07/12 03:25:12 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/12 15:29:01 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_planeclear(t_plane **plane)
 	}
 }
 
-t_plane	*ft_planenew(t_point coords, t_point vector, t_color rgb)
+t_plane	*ft_planenew(t_point coords, t_vec vector, t_color rgb)
 {
 	t_plane	*plane;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:46:11 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/02 19:50:39 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/12 15:36:45 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,35 +18,23 @@ void	init_scene_objects(t_scene *s)
 	t_sphere	*my_sphere2;
 	t_plane		*my_plane;
 	t_cylinder	*my_cylinder;
-	t_lgt		*my_light;
-	t_lgt		*my_light2;
-	t_amb		*my_amb;
 
 	s->spheres = NULL;
 	s->planes = NULL;
 	s->cylinders = NULL;
-	s->lights = NULL;
-	s->amb = NULL;
-	my_plane = plane(vec(-1, -2, -2), vec(0, 1, 0), vec(0, 0, 225));
+	my_plane = plane(vec(-1, -2, -2), vec(0, 1, 0), (t_color){0, 0, 225});
 	s->planes = my_plane;
-	my_sphere = sphere(vec(-2, -0.5, -2), 0.5, vec(255, 255, 255));
+	my_sphere = sphere(vec(-2, -0.5, -2), 0.5, (t_color){255, 255, 255});
 	my_sphere->next = NULL;
-	my_sphere2 = sphere(vec(0.5, -0.5, -2), 0.5, vec(255, 255, 255));
+	my_sphere2 = sphere(vec(0.5, -0.5, -2), 0.5, (t_color){255, 255, 255});
 	my_sphere2->next = NULL;
 	my_sphere->next = my_sphere2;
 	s->spheres = my_sphere;
-	my_cylinder = cylinder(vec(-0.5, -0.5, -2), vec(0, 1, 0), 0.8, 1, vec(255, 255, 255));
+	my_cylinder = cylinder(vec(-0.5, -0.5, -2), vec(0, 1, 0), 0.8, 1, (t_color){255, 255, 255});
 	s->cylinders = my_cylinder;
-	my_light = light(vec(2.0, 5.0, 1), 0.7, vec(0, 0, 255));
-	my_light->next = NULL; 
-	my_light2 = light(vec(-3.0, 4.0, 2), 0.7, vec(255, 0, 0));
-	my_light2->next = NULL;
-	my_light->next = my_light2; 
-	s->lights = my_light;
-	my_amb = amb(0.2, vec(255, 255, 255));
-	s->amb = my_amb;
+	s->light = light(vec(2.0, 5.0, 1), 0.7, (t_color){0, 0, 255});
+	s->amb = amb(0.2, (t_color){255, 255, 255});
 }
-
 
 void	init_camera(t_scene *s)
 {
@@ -57,13 +45,13 @@ void	init_camera(t_scene *s)
 	aspect_ratio = (double)WIDTH / HEIGHT;
 	viewport_height = 3.0;
 	viewport_width = viewport_height * aspect_ratio;
-	s->camera.zoom = 1;
+	s->camera.fov = 1;
 	s->origin = vec(0, 0, 0);
 	s->horizontal = vec(viewport_width, 0, 0);
 	s->vertical = vec(0, viewport_height, 0);
 	s->lower_left_corner = vec_sub(vec_sub(vec_sub(s->origin,
 				vec_div(s->horizontal, 2)), vec_div(s->vertical, 2)),
-			vec(0, 0, s->camera.zoom));
+			vec(0, 0, s->camera.fov));
 }
 
 void	init_scene(t_scene *s)

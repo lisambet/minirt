@@ -6,15 +6,15 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 03:08:53 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/07/12 03:10:45 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/12 14:20:55 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-inline void	set_error(t_data *data)
+inline void	set_error(t_scene *scene)
 {
-	data->error = 1;
+	scene->error = 1;
 }
 
 int	ft_printerror(char *str)

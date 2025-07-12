@@ -6,12 +6,13 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 03:31:05 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/07/12 03:32:42 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/12 15:39:08 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OBJECTS_H
 # define OBJECTS_H
+# include <stdbool.h>
 
 typedef struct s_vec
 {
@@ -20,7 +21,13 @@ typedef struct s_vec
 	double z;
 } t_vec, t_point;
 
-typedef t_vec t_color;
+typedef struct s_color
+{
+	unsigned char red;
+	unsigned char green;
+	unsigned char blue;
+}			t_color;
+
 typedef t_vec t_point;
 
 enum e_object_type {
@@ -41,12 +48,12 @@ typedef struct s_plane
 
 typedef struct s_camera
 {
-	t_point pos;
-	t_vec	dir;
-	double	zoom;
-	t_vec	look_dir;
-	t_vec   up_vec;
-	bool	enabled;
+	t_point 		pos;
+	t_vec			dir;
+	unsigned char	fov;
+	t_vec			look_dir;
+	t_vec   		up_vec;
+	bool			enabled;
 } t_camera;
 
 typedef struct s_amb
@@ -71,7 +78,7 @@ typedef struct s_sphere
 	float    d;
 	t_color    color;
 	t_point center;
-	double radius;
+	double diameter;
 	struct s_sphere *next;
 } t_sphere;
 
@@ -86,7 +93,7 @@ typedef struct s_cylinder
 	t_color    color;
 	t_point center;
 	t_vec axis;
-	double radius;
+	double diameter;
 	double height;
 	struct s_cylinder *next;
 } t_cylinder;

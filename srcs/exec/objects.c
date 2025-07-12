@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 21:31:35 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/12 02:46:35 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/12 15:06:51 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ bool	hit_sphere(t_sphere *sp, t_ray r, double *t_out)
 	oc = vec_sub(r.orig, sp->center);
 	a = vec_dot(r.dir, r.dir);
 	b = 2.0 * vec_dot(oc, r.dir);
-	c = vec_dot(oc, oc) - sp->radius * sp->radius;
+	c = vec_dot(oc, oc) - sp->diameter * sp->diameter;
 	discriminant = b * b - 4 * a * c;
+	*t_out = 0;
 	if (discriminant < 0)
 		return (false);
 	t = (-b - sqrt(discriminant)) / (2.0 * a);
@@ -37,7 +38,7 @@ bool	hit_sphere(t_sphere *sp, t_ray r, double *t_out)
 	return (false);
 }
 
-t_sphere	*sphere(t_point center, double radius, t_color color)
+t_sphere	*sphere(t_point center, double diameter, t_color color)
 {
 	t_sphere	*new;
 
@@ -45,13 +46,14 @@ t_sphere	*sphere(t_point center, double radius, t_color color)
 	if (!new)
 		return (NULL);
 	new->center = center;
-	new->radius = radius;
-	new->color.x = color.x / 255.0;
-	new->color.y = color.y / 255.0;
-	new->color.z = color.z / 255.0;
+	new->diameter = diameter;
+	new->color.red = color.red / 255.0;
+	new->color.green = color.green / 255.0;
+	new->color.blue = color.blue / 255.0;
 	new->next = NULL;
 	return (new);
 }
+
 t_plane	*plane(t_point p0, t_vec normal, t_color color)
 {
 	t_plane	*new;
@@ -61,9 +63,9 @@ t_plane	*plane(t_point p0, t_vec normal, t_color color)
 		return (NULL);
 	new->p0 = p0;
 	new->normal = normal;
-	new->color.x = color.x / 255.0;
-	new->color.y = color.y / 255.0;
-	new->color.z = color.z / 255.0;
+	new->color.red = color.red / 255.0;
+	new->color.green = color.green / 255.0;
+	new->color.blue = color.blue / 255.0;
 	new->next = NULL;
 	return (new);
 }

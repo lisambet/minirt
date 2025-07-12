@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:37:09 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/12 03:10:37 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/12 14:33:50 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,4 @@ void cleanup_scene_data(t_scene *s)
 		free_planes(s->planes);
 	if (s->cylinders)
 		free_cylinders(s->cylinders);
-	if (s->lights)
-		free_lights(s->lights);
-	if (s->amb)
-		free(s->amb);
 }
