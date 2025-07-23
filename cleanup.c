@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:37:09 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/02 12:46:59 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/02 20:51:10 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ int	cleanup_window(t_scene *s, char *msg)
 	mlx_destroy_window(s->mlx, s->win);
 	mlx_destroy_display(s->mlx);
 	free(s->mlx);
-	return (error_exit(msg));
+	return (error_exit("Error\n"));
 }
 
 int	cleanup_mlx(t_scene *s, char *msg)
 {
 	mlx_destroy_display(s->mlx);
 	free(s->mlx);
-	return (error_exit(msg));
+	return (error_exit("Error\n"));
 }
 
 void cleanup_scene_data(t_scene *s)
