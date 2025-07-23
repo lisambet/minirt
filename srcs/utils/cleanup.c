@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:37:09 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/12 14:33:50 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/23 14:22:36 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ int	cleanup_window(t_scene *s, char *msg)
 	mlx_destroy_window(s->mlx, s->win);
 	mlx_destroy_display(s->mlx);
 	free(s->mlx);
-	return (error_exit(msg));
+	return (error_exit("Error\n"));
 }
 
 int	cleanup_mlx(t_scene *s, char *msg)
 {
 	mlx_destroy_display(s->mlx);
 	free(s->mlx);
-	return (error_exit(msg));
+	return (error_exit("Error\n"));
 }
 
 void cleanup_scene_data(t_scene *s)
