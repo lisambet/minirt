@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 21:31:35 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/23 15:31:09 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/23 15:49:59 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,38 +35,6 @@ bool	hit_sphere(t_sphere *sp, t_ray r, double *t_out, double t)
 		return (true);
 	}
 	return (false);
-}
-
-t_sphere	*sphere(t_point center, double diameter, t_color color)
-{
-	t_sphere	*new;
-
-	new = malloc(sizeof(t_sphere));
-	if (!new)
-		return (NULL);
-	new->center = center;
-	new->diameter = diameter;
-	new->color.red = color.red / 255.0;
-	new->color.green = color.green / 255.0;
-	new->color.blue = color.blue / 255.0;
-	new->next = NULL;
-	return (new);
-}
-
-t_plane	*plane(t_point p0, t_vec normal, t_color color)
-{
-	t_plane	*new;
-
-	new = malloc(sizeof(t_plane));
-	if (!new)
-		return (NULL);
-	new->p0 = p0;
-	new->normal = normal;
-	new->color.red = color.red / 255.0;
-	new->color.green = color.green / 255.0;
-	new->color.blue = color.blue / 255.0;
-	new->next = NULL;
-	return (new);
 }
 
 bool	hit_plane(t_plane *plane, t_ray r, double *t_out)
