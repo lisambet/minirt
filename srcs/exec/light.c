@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 19:31:44 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/12 15:38:11 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/23 14:56:26 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ t_lgt	light(t_point vtx, float i, t_color color)
 	new.vtx = vtx;
 	new.i = i;
 	new.color = color;
-	new.next = NULL;
+	new.color.red /= 255;
+	new.color.green /= 255;
+	new.color.blue /= 255;
 	return (new);
 }
 
@@ -29,6 +31,9 @@ t_amb	amb(float i, t_color color)
 
 	new.i = i;
 	new.color = color;
+	new.color.red /= 255;
+	new.color.green /= 255;
+	new.color.blue /= 255;
 	new.enabled = 1;
 	return (new);
 }
@@ -61,12 +66,10 @@ t_color	calculate_direct_color(t_scene *s, t_color object_color,
 			t_vec normal, t_point intersection_point)
 {
 	t_color	direct_lighting;
-	t_lgt	current_light;
 
 	direct_lighting = (t_color){0, 0, 0};
-	current_light = s->light;
 	direct_lighting = color_add(direct_lighting,
-		get_single_light(s, current_light, object_color,
+		get_single_light(s, s->light, object_color,
 										normal, intersection_point));
 	return (direct_lighting);
 }

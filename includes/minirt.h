@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:21:36 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/12 15:34:56 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/23 14:32:16 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define WIDTH 1600
 # define HEIGHT 900
 # define SHADOW_BIAS 0.001
-# define SCALEDOWN 20
+# define SCALEDOWN 1
 // #define MOVE_SPEED 1.0
 // #define ROTATION_ANGLE 10.0 
 

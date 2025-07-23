@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:27:41 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/12 02:45:36 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/23 14:40:20 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,3 @@ void	check_cylinder_hits(t_scene *s, t_ray r, t_hit_record *rec)
 		cylinder = cylinder->next;
 	}
 }
-
-

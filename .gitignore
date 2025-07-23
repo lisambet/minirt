@@ -4,3 +4,4 @@ miniRT
 objs/
 minilibx-linux/
 *.a
+.vscode/

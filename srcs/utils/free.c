@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 12:07:21 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/12 14:16:13 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/23 14:28:11 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,6 @@ void free_cylinders(t_cylinder *head)
 {
 	t_cylinder *current;
 	t_cylinder *next;
-
-	current = head;
-	while (current)
-	{
-		next = current->next;
-		free(current);
-		current = next;
-	}
-}
-
-void free_lights(t_lgt *head)
-{
-	t_lgt *current;
-	t_lgt *next;
 
 	current = head;
 	while (current)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 03:31:05 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/07/12 15:39:08 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/23 14:39:25 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ typedef struct s_vec
 
 typedef struct s_color
 {
-	unsigned char red;
-	unsigned char green;
-	unsigned char blue;
-}			t_color;
+	double red;
+	double green;
+	double blue;
+} 		t_color;
 
 typedef t_vec t_point;
 
@@ -48,27 +48,26 @@ typedef struct s_plane
 
 typedef struct s_camera
 {
-	t_point 		pos;
-	t_vec			dir;
-	unsigned char	fov;
-	t_vec			look_dir;
-	t_vec   		up_vec;
-	bool			enabled;
+	t_point pos;
+	t_vec	dir;
+	double	fov;
+	t_vec	look_dir;
+	t_vec   up_vec;
+	bool	enabled;
 } t_camera;
 
 typedef struct s_amb
 {
-	float    i;
-	t_color    color;
+	float	i;
+	t_color	color;
 	bool	enabled;
-}    t_amb;
+}	t_amb;
 
 typedef struct s_lgt
 {
 	t_vec    vtx;
 	float    i;
 	t_color    color;
-	struct s_lgt *next;
 	bool	enabled;
 }    t_lgt;
 

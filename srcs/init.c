@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:46:11 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/12 15:36:45 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/23 14:52:48 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ void	init_scene_objects(t_scene *s)
 	my_cylinder = cylinder(vec(-0.5, -0.5, -2), vec(0, 1, 0), 0.8, 1, (t_color){255, 255, 255});
 	s->cylinders = my_cylinder;
 	s->light = light(vec(2.0, 5.0, 1), 0.7, (t_color){0, 0, 255});
+	s->light.enabled = true;
 	s->amb = amb(0.2, (t_color){255, 255, 255});
+	s->amb.enabled = true;
 }
 
 void	init_camera(t_scene *s)
@@ -134,5 +136,3 @@ void render(t_scene *s)
 	}
 	printf("Done rendering image.\n");
 }
-
-
