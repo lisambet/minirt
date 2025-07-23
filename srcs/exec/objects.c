@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   objects.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 21:31:35 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/23 15:20:01 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/23 15:31:09 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-bool	hit_sphere(t_sphere *sp, t_ray r, double *t_out)
+bool	hit_sphere(t_sphere *sp, t_ray r, double *t_out, double t)
 {
 	t_vec	oc;
 	double	a;
 	double	b;
 	double	c;
 	double	discriminant;
-	double	t;
 
 	oc = vec_sub(r.orig, sp->center);
 	a = vec_dot(r.dir, r.dir);

@@ -6,38 +6,11 @@
 /*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:46:11 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/23 14:52:48 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/23 15:43:50 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-void	init_scene_objects(t_scene *s)
-{
-	t_sphere	*my_sphere;
-	t_sphere	*my_sphere2;
-	t_plane		*my_plane;
-	t_cylinder	*my_cylinder;
-
-	s->spheres = NULL;
-	s->planes = NULL;
-	s->cylinders = NULL;
-	my_plane = plane(vec(-1, -2, -2), vec(0, 1, 0), (t_color){0, 0, 225});
-	s->planes = my_plane;
-	my_sphere = sphere(vec(-2, -0.5, -2), 0.5, (t_color){255, 255, 255});
-	my_sphere->next = NULL;
-	my_sphere2 = sphere(vec(0.5, -0.5, -2), 0.5, (t_color){255, 255, 255});
-	my_sphere2->next = NULL;
-	my_sphere->next = my_sphere2;
-	s->spheres = my_sphere;
-	my_cylinder = cylinder(vec(-0.5, -0.5, -2), vec(0, 1, 0), 0.8, 1,
-			(t_color){255, 255, 255});
-	s->cylinders = my_cylinder;
-	s->light = light(vec(2.0, 5.0, 1), 0.7, (t_color){0, 0, 255});
-	s->light.enabled = true;
-	s->amb = amb(0.2, (t_color){255, 255, 255});
-	s->amb.enabled = true;
-}
 
 void	init_camera(t_scene *s)
 {
@@ -63,7 +36,6 @@ void	init_scene(t_scene *s)
 	int	line_length;
 	int	endian;
 
-	init_scene_objects(s);
 	s->mlx = mlx_init();
 	if (!s->mlx)
 		exit(error_exit("Failed to initialize mlx"));
@@ -88,12 +60,10 @@ void	init_hit_record(t_hit_record *rec)
 	rec->hit_type = 0;
 }
 
-void	render(t_scene *s)
+void	render(t_scene *s, double u, double v)
 {
 	size_t	x;
 	size_t	y;
-	double	u;
-	double	v;
 	t_ray	r;
 	t_vec	direction;
 	t_color	color;

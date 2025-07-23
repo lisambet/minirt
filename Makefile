@@ -9,6 +9,7 @@ NAME				=	miniRT
 # Sources & Includes
 SRCS				= 	srcs/main.c \
 						srcs/init.c \
+						srcs/exec/color.c \
 						srcs/exec/cylinder.c \
 						srcs/exec/events.c \
 						srcs/exec/hit_cylinder.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:05:09 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/23 15:20:24 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/23 15:30:07 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	key_press(int keycode, t_scene *s)
 		close_window(s);
 		exit(0);
 	}
-	render(s);
+	render(s, 0, 0);
 	return (0);
 }
 

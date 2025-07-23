@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 21:31:35 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/23 14:59:17 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/23 15:44:06 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int	main(int ac, char **av)
 	}
 	// init_scene(&scene);
 	print_objects(scene);
-	render(&scene);
+	render(&scene, 0, 0);
 	mlx_put_image_to_window(scene.mlx, scene.win, scene.img, 0, 0);
 	mlx_loop(scene.mlx);
 	free_structs(scene);

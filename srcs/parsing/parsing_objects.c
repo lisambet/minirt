@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_objects.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 15:48:25 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/07/12 15:28:47 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/23 15:28:27 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	parse_cylinder(char *input, t_scene *scene)
 	axis = vec_normalize((t_vec){ft_atod(tab[4]), ft_atod(tab[5]),
 			ft_atod(tab[6])});
 	rgb = (t_color){ft_atoi(tab[9]), ft_atoi(tab[10]), ft_atoi(tab[11])};
-	cylinder = ft_cylindernew(coords, axis, (double[2]){ft_atod(tab[7]),
+	cylinder = ft_cylindernew(coords, axis, (double [2]){ft_atod(tab[7]),
 			ft_atod(tab[8])}, rgb);
 	ft_cylinderadd_back(&scene->cylinders, cylinder);
 	ft_tabfree(tab, ft_tablen(tab));

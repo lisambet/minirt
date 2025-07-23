@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 15:48:17 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/07/23 14:58:55 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/23 15:35:36 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ void	parse_diffuse(char *input, t_scene *scene)
 	scene->light.vtx = (t_vec){ft_atod(tab[1]), ft_atod(tab[2]),
 		ft_atod(tab[3])};
 	scene->light.i = ft_atof(tab[4]);
-	scene->light.color = (t_color){(double)(ft_atoi(tab[5])),
-		(double)(ft_atoi(tab[6])), (double)(ft_atoi(tab[7]))};
+	scene->light.color = (t_color){(double)(ft_atoi(tab[5])) / 255,
+		(double)(ft_atoi(tab[6])) / 255, (double)(ft_atoi(tab[7])) / 255};
 	scene->light.enabled = 1;
 	ft_tabfree(tab, ft_tablen(tab));
 }

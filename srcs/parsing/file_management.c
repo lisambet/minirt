@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_management.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 16:36:41 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/07/12 15:22:07 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/23 15:25:46 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,7 @@ t_scene	setup_scene(char *file, int len)
 
 	prefill_scene(&scene);
 	if (len < 3 || ft_strncmp(&file[len - 3], ".rt", 3))
-		return (error_scene(scene, "File has invalid format,
-				must end with .rt"));
+		return (error_scene(scene, "File must end with .rt"));
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (error_scene(scene, "Invalid file"));

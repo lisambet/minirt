@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shadow.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 19:54:37 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/12 02:43:28 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/23 15:31:48 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	is_blocked_by_spheres(t_scene *s, t_ray shadow_ray, double t_max)
 	sphere = s->spheres;
 	while (sphere)
 	{
-		if (hit_sphere(sphere, shadow_ray, &current_t))
+		if (hit_sphere(sphere, shadow_ray, &current_t, 0))
 		{
 			if (current_t > SHADOW_BIAS && current_t < t_max)
 				return (true);

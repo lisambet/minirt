@@ -3,58 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 09:36:03 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/12 15:08:01 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/23 15:43:09 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_cylinder	*cylinder(t_point p0, t_vec normal, double diameter, double height,
-		t_color color)
-{
-	t_cylinder	*new;
-
-	new = malloc(sizeof(t_cylinder));
-	if (!new)
-		return (NULL);
-	new->p0 = p0;
-	new->normal = normal;
-	new->diameter = diameter;
-	new->height = height;
-	new->color.red = color.red / 255.0;
-	new->color.green = color.green / 255.0;
-	new->color.blue = color.blue / 255.0;
-	new->next = NULL;
-	return (new);
-}
-
-bool	solve_quadratic(double a, double b, double c, double *t1, double *t2)
+bool	solve_quadratic(double indices[3], double *t1, double *t2)
 {
 	double	discriminant;
 	double	q_sqrt;
 
-	discriminant = b * b - 4 * a * c;
+	discriminant = indices[1] * indices[1] - 4 * indices[0] * indices[2];
 	if (discriminant < 0)
 		return (false);
-	if (fabs(a) < 1e-6)
+	if (fabs(indices[0]) < 1e-6)
 	{
-		if (fabs(b) < 1e-6)
+		if (fabs(indices[1]) < 1e-6)
 			return (false);
-		*t1 = -c / b;
+		*t1 = -indices[2] / indices[1];
 		*t2 = -1.0;
 		return (true);
 	}
 	q_sqrt = sqrt(discriminant);
-	*t1 = (-b - q_sqrt) / (2.0 * a);
-	*t2 = (-b + q_sqrt) / (2.0 * a);
+	*t1 = (-indices[1] - q_sqrt) / (2.0 * indices[0]);
+	*t2 = (-indices[1] + q_sqrt) / (2.0 * indices[0]);
 	return (true);
 }
 
-void	get_cyl_eq_coefficients(t_cylinder *cyl, t_ray r, double *a, double *b,
-		double *c)
+void	get_cyl_eq_coefficients(t_cylinder *cyl, t_ray r, double *indices[3])
 {
 	t_vec	oc;
 	t_vec	n;
@@ -63,9 +43,9 @@ void	get_cyl_eq_coefficients(t_cylinder *cyl, t_ray r, double *a, double *b,
 	oc = vec_sub(r.orig, cyl->p0);
 	n = cyl->normal;
 	d = r.dir;
-	*a = vec_dot(d, d) - pow(vec_dot(d, n), 2);
-	*b = 2.0 * (vec_dot(d, oc) - vec_dot(d, n) * vec_dot(oc, n));
-	*c = vec_dot(oc, oc) - pow(vec_dot(oc, n), 2) - cyl->diameter
+	*indices[0] = vec_dot(d, d) - pow(vec_dot(d, n), 2);
+	*indices[1] = 2.0 * (vec_dot(d, oc) - vec_dot(d, n) * vec_dot(oc, n));
+	*indices[2] = vec_dot(oc, oc) - pow(vec_dot(oc, n), 2) - cyl->diameter
 		* cyl->diameter;
 }
 

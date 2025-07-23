@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:27:41 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/23 14:40:20 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/23 15:31:44 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	check_sphere_hits(t_scene *s, t_ray r, t_hit_record *rec)
 	sphere = s->spheres;
 	while (sphere)
 	{
-		if (hit_sphere(sphere, r, &current_t) && current_t > 0.001
+		if (hit_sphere(sphere, r, &current_t, 0) && current_t > 0.001
 			&& current_t < rec->t)
 		{
 			rec->t = current_t;

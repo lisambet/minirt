@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:21:36 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/23 14:32:16 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/23 15:43:24 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct s_ray
 void			recalculate_camera_basis(t_scene *s);
 
 void			init_scene(t_scene *s);
-void			render(t_scene *s);
+void			render(t_scene *s, double u, double v);
 
 t_vec			vec(double x, double y, double z);
 t_vec			vec_add(t_vec a, t_vec b);
@@ -90,9 +90,9 @@ t_vec			rotate_vector(t_vec v, t_vec axis, double angle_degrees);
 double			get_m_projection(t_cylinder *cyl, t_ray r, double t);
 
 double			get_m_projection(t_cylinder *cyl, t_ray r, double t);
-void			get_cyl_eq_coefficients(t_cylinder *cyl, t_ray r, double *a,
-					double *b, double *c);
-bool			solve_quadratic(double a, double b, double c, double *t1,
+void			get_cyl_eq_coefficients(t_cylinder *cyl, t_ray r,
+					double *indices[3]);
+bool			solve_quadratic(double indices[3], double *t1,
 					double *t2);
 
 t_ray			ray(t_point origin, t_vec direction);
@@ -110,14 +110,10 @@ void			free_cylinders(t_cylinder *head);
 void			free_lights(t_lgt *head);
 void			cleanup_scene_data(t_scene *s);
 
-t_sphere		*sphere(t_point center, double diameter, t_color color);
-t_plane			*plane(t_point p0, t_vec normal, t_color color);
-t_cylinder		*cylinder(t_point p0, t_vec normal, double diameter,
-					double height, t_color color);
-
-bool			hit_sphere(t_sphere *sphere, t_ray r, double *t_out);
+bool			hit_sphere(t_sphere *sphere, t_ray r, double *t_out, double t);
 bool			hit_plane(t_plane *plane, t_ray r, double *t_out);
-bool			hit_cylinder_side(t_cylinder *cyl, t_ray r, double *t_side);
+bool			hit_cylinder_side(t_cylinder *cyl, t_ray r, double *t_side,
+					double m);
 bool			hit_cylinder(t_cylinder *cyl, t_ray r, double *t_out,
 					int *hit_type);
 
@@ -135,6 +131,9 @@ t_amb			amb(float i, t_color color);
 t_color			color_add(t_color c1, t_color c2);
 double			clamp(double value, double min, double max);
 bool			is_blocked(t_scene *s, t_ray shadow_ray, double t_max);
+t_color			calculate_ambient_color(t_scene *s, t_color object_color);
+t_color			calculate_direct_color(t_scene *s, t_color object_color,
+					t_vec normal, t_point intersection_point);
 
 void			check_cylinder_hits(t_scene *s, t_ray r, t_hit_record *rec);
 void			check_plane_hits(t_scene *s, t_ray r, t_hit_record *rec);
@@ -155,6 +154,7 @@ void			ft_cylinderadd_back(t_cylinder **head, t_cylinder *cylinder);
 void			ft_cylinderclear(t_cylinder **cylinder);
 t_cylinder		*ft_cylindernew(t_point coords, t_vec vector, double *values,
 					t_color rgb);
+void			draw_blocks(t_scene *s, size_t x, size_t y, t_color color);
 
 int				ft_printerror(char *str);
 void			set_error(t_scene *scene);
