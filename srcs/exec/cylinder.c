@@ -12,9 +12,10 @@
 
 #include "minirt.h"
 
-t_cylinder *cylinder(t_point p0, t_vec normal, double diameter, double height, t_color color)
+t_cylinder	*cylinder(t_point p0, t_vec normal, double diameter, double height,
+		t_color color)
 {
-	t_cylinder *new;
+	t_cylinder	*new;
 
 	new = malloc(sizeof(t_cylinder));
 	if (!new)
@@ -52,7 +53,8 @@ bool	solve_quadratic(double a, double b, double c, double *t1, double *t2)
 	return (true);
 }
 
-void	get_cyl_eq_coefficients(t_cylinder *cyl, t_ray r, double *a, double *b, double *c)
+void	get_cyl_eq_coefficients(t_cylinder *cyl, t_ray r, double *a, double *b,
+		double *c)
 {
 	t_vec	oc;
 	t_vec	n;
@@ -63,7 +65,8 @@ void	get_cyl_eq_coefficients(t_cylinder *cyl, t_ray r, double *a, double *b, dou
 	d = r.dir;
 	*a = vec_dot(d, d) - pow(vec_dot(d, n), 2);
 	*b = 2.0 * (vec_dot(d, oc) - vec_dot(d, n) * vec_dot(oc, n));
-	*c = vec_dot(oc, oc) - pow(vec_dot(oc, n), 2) - cyl->diameter * cyl->diameter;
+	*c = vec_dot(oc, oc) - pow(vec_dot(oc, n), 2) - cyl->diameter
+		* cyl->diameter;
 }
 
 double	get_m_projection(t_cylinder *cyl, t_ray r, double t)
@@ -77,4 +80,3 @@ double	get_m_projection(t_cylinder *cyl, t_ray r, double t)
 	d = r.dir;
 	return (vec_dot(d, n) * t + vec_dot(oc, n));
 }
-

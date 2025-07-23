@@ -12,24 +12,27 @@
 
 #include "minirt.h"
 
-double clamp(double value, double min, double max) 
+double	clamp(double value, double min, double max)
 {
-	if (value < min) return min;
-	if (value > max) return max;
-	return value;
+	if (value < min)
+		return (min);
+	if (value > max)
+		return (max);
+	return (value);
 }
 
-t_color color_add(t_color c1, t_color c2)
+t_color	color_add(t_color c1, t_color c2)
 {
-	t_color result;
+	t_color	result;
 
 	result.red = c1.red + c2.red;
 	result.green = c1.green + c2.green;
 	result.blue = c1.blue + c2.blue;
-	result.red = clamp(result.red, 0.0, 1.0); //maybe put 0.1 in intensity as minimum 
+	result.red = clamp(result.red, 0.0, 1.0);
+		// maybe put 0.1 in intensity as minimum
 	result.green = clamp(result.green, 0.0, 1.0);
 	result.blue = clamp(result.blue, 0.0, 1.0);
-	return result;
+	return (result);
 }
 
 t_vec	get_hit_object_normal(t_ray r, t_hit_record *rec)

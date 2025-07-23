@@ -15,7 +15,7 @@
 void	parse_sphere(char *input, t_scene *scene)
 {
 	char		**tab;
-	t_point	coords;
+	t_point		coords;
 	t_color		rgb;
 	t_sphere	*sphere;
 
@@ -38,11 +38,11 @@ void	parse_sphere(char *input, t_scene *scene)
 
 void	parse_plane(char *input, t_scene *scene)
 {
-	char		**tab;
+	char	**tab;
 	t_point	coords;
 	t_vec	vector;
-	t_color		rgb;
-	t_plane		*plane;
+	t_color	rgb;
+	t_plane	*plane;
 
 	if (ft_stroccur(input, ',') != 6)
 		return (set_error(scene));
@@ -66,9 +66,9 @@ void	parse_plane(char *input, t_scene *scene)
 void	parse_cylinder(char *input, t_scene *scene)
 {
 	char		**tab;
-	t_point	coords;
+	t_point		coords;
 	t_color		rgb;
-	t_vec	axis;
+	t_vec		axis;
 	t_cylinder	*cylinder;
 
 	if (ft_stroccur(input, ',') != 6)
@@ -85,7 +85,7 @@ void	parse_cylinder(char *input, t_scene *scene)
 	axis = vec_normalize((t_vec){ft_atod(tab[4]), ft_atod(tab[5]),
 			ft_atod(tab[6])});
 	rgb = (t_color){ft_atoi(tab[9]), ft_atoi(tab[10]), ft_atoi(tab[11])};
-	cylinder = ft_cylindernew(coords, axis, (double [2]){ft_atod(tab[7]),
+	cylinder = ft_cylindernew(coords, axis, (double[2]){ft_atod(tab[7]),
 			ft_atod(tab[8])}, rgb);
 	ft_cylinderadd_back(&scene->cylinders, cylinder);
 	ft_tabfree(tab, ft_tablen(tab));

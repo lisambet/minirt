@@ -19,7 +19,7 @@ inline void	set_error(t_scene *scene)
 
 int	ft_printerror(char *str)
 {
-	ft_putendl_fd(RED"Error", 2);
+	ft_putendl_fd(RED "Error", 2);
 	ft_putendl_fd(str, 2);
 	ft_putstr_fd(NOC, 2);
 	return (0);

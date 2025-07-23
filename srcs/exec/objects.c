@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 21:31:35 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/12 15:06:51 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/23 15:20:01 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,22 @@ bool	hit_plane(t_plane *plane, t_ray r, double *t_out)
 		}
 	}
 	return (false);
+}
+
+void	draw_blocks(t_scene *s, size_t x, size_t y, t_color color)
+{
+	size_t	tx;
+	size_t	ty;
+
+	ty = 0;
+	while (ty < (size_t)SCALEDOWN && ty + y < (size_t)HEIGHT)
+	{
+		tx = 0;
+		while (tx < (size_t)SCALEDOWN && tx + x < (size_t)WIDTH)
+		{
+			s->data[(y + ty) * WIDTH + (x + tx)] = get_color_int(color);
+			tx++;
+		}
+		ty++;
+	}
 }

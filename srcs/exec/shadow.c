@@ -16,55 +16,55 @@ bool	is_blocked_by_spheres(t_scene *s, t_ray shadow_ray, double t_max)
 {
 	double		current_t;
 	t_sphere	*sphere;
-	
+
 	sphere = s->spheres;
 	while (sphere)
 	{
 		if (hit_sphere(sphere, shadow_ray, &current_t))
 		{
 			if (current_t > SHADOW_BIAS && current_t < t_max)
-				return (true); 
+				return (true);
 		}
 		sphere = sphere->next;
 	}
-	return (false); 
+	return (false);
 }
 
 bool	is_blocked_by_planes(t_scene *s, t_ray shadow_ray, double t_max)
 {
 	double	current_t;
 	t_plane	*plane;
-	
+
 	plane = s->planes;
 	while (plane)
 	{
 		if (hit_plane(plane, shadow_ray, &current_t))
 		{
 			if (current_t > SHADOW_BIAS && current_t < t_max)
-				return (true); 
+				return (true);
 		}
 		plane = plane->next;
 	}
-	return (false); 
+	return (false);
 }
 
 bool	is_blocked_by_cylinders(t_scene *s, t_ray shadow_ray, double t_max)
 {
 	double		current_t;
-	int			temp_hit_type; 
+	int			temp_hit_type;
 	t_cylinder	*cylinder;
-	
+
 	cylinder = s->cylinders;
 	while (cylinder)
 	{
 		if (hit_cylinder(cylinder, shadow_ray, &current_t, &temp_hit_type))
 		{
 			if (current_t > SHADOW_BIAS && current_t < t_max)
-				return (true); 
+				return (true);
 		}
 		cylinder = cylinder->next;
 	}
-	return (false); 
+	return (false);
 }
 
 bool	is_blocked(t_scene *s, t_ray shadow_ray, double t_max)

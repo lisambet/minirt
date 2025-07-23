@@ -96,7 +96,8 @@ t_scene	setup_scene(char *file, int len)
 
 	prefill_scene(&scene);
 	if (len < 3 || ft_strncmp(&file[len - 3], ".rt", 3))
-		return (error_scene(scene, "File has invalid format, must end with .rt"));
+		return (error_scene(scene, "File has invalid format,
+				must end with .rt"));
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (error_scene(scene, "Invalid file"));

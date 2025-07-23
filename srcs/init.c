@@ -30,7 +30,8 @@ void	init_scene_objects(t_scene *s)
 	my_sphere2->next = NULL;
 	my_sphere->next = my_sphere2;
 	s->spheres = my_sphere;
-	my_cylinder = cylinder(vec(-0.5, -0.5, -2), vec(0, 1, 0), 0.8, 1, (t_color){255, 255, 255});
+	my_cylinder = cylinder(vec(-0.5, -0.5, -2), vec(0, 1, 0), 0.8, 1,
+			(t_color){255, 255, 255});
 	s->cylinders = my_cylinder;
 	s->light = light(vec(2.0, 5.0, 1), 0.7, (t_color){0, 0, 255});
 	s->light.enabled = true;
@@ -52,15 +53,15 @@ void	init_camera(t_scene *s)
 	s->horizontal = vec(viewport_width, 0, 0);
 	s->vertical = vec(0, viewport_height, 0);
 	s->lower_left_corner = vec_sub(vec_sub(vec_sub(s->origin,
-				vec_div(s->horizontal, 2)), vec_div(s->vertical, 2)),
-			vec(0, 0, s->camera.fov));
+					vec_div(s->horizontal, 2)), vec_div(s->vertical, 2)), vec(0,
+				0, s->camera.fov));
 }
 
 void	init_scene(t_scene *s)
 {
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
+	int	bits_per_pixel;
+	int	line_length;
+	int	endian;
 
 	init_scene_objects(s);
 	s->mlx = mlx_init();
@@ -72,48 +73,30 @@ void	init_scene(t_scene *s)
 	s->img = mlx_new_image(s->mlx, WIDTH, HEIGHT);
 	if (!s->img)
 		exit(cleanup_window(s, "Failed to create image"));
-	s->data = (int *)mlx_get_data_addr(s->img, &bits_per_pixel,
-			&line_length, &endian);
+	s->data = (int *)mlx_get_data_addr(s->img, &bits_per_pixel, &line_length,
+			&endian);
 	init_camera(s);
 	events_init(s);
 }
 
-void    init_hit_record(t_hit_record *rec)
+void	init_hit_record(t_hit_record *rec)
 {
-    rec->t = INFINITY;
-    rec->object_ptr = NULL;
-    rec->object_type = OBJ_NONE;
-    rec->hit = 0;
+	rec->t = INFINITY;
+	rec->object_ptr = NULL;
+	rec->object_type = OBJ_NONE;
+	rec->hit = 0;
 	rec->hit_type = 0;
 }
 
-void	draw_blocks(t_scene *s, size_t x, size_t y, t_color color)
+void	render(t_scene *s)
 {
-	size_t	tx;
-	size_t	ty;
-
-	ty = 0;
-	while (ty < (size_t)SCALEDOWN && ty + y < (size_t)HEIGHT)
-	{
-		tx = 0;
-		while (tx < (size_t)SCALEDOWN && tx + x < (size_t)WIDTH)
-		{
-			s->data[(y + ty) * WIDTH + (x + tx)] = get_color_int(color);
-			tx++;
-		}
-		ty++;
-	}
-}
-
-void render(t_scene *s)
-{
-	size_t x;
-	size_t y;
-	double u;
-	double v;
-	t_ray r;
-	t_vec direction;
-	t_color color;
+	size_t	x;
+	size_t	y;
+	double	u;
+	double	v;
+	t_ray	r;
+	t_vec	direction;
+	t_color	color;
 
 	y = 0;
 	while (y < HEIGHT)
@@ -124,11 +107,10 @@ void render(t_scene *s)
 			u = (double)x / (WIDTH - 1);
 			v = (double)(HEIGHT - 1 - y) / (HEIGHT - 1);
 			direction = vec_sub(vec_add(vec_add(s->lower_left_corner,
-												vec_mul(s->horizontal, u)),
-										vec_mul(s->vertical, v)),
-								s->origin);
+							vec_mul(s->horizontal, u)), vec_mul(s->vertical,
+							v)), s->origin);
 			r = ray(s->origin, direction);
-			color = ray_color(s,r);
+			color = ray_color(s, r);
 			draw_blocks(s, x, y, color);
 			x += SCALEDOWN;
 		}

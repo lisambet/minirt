@@ -34,8 +34,8 @@ void	check_sphere_hits(t_scene *s, t_ray r, t_hit_record *rec)
 	sphere = s->spheres;
 	while (sphere)
 	{
-		if (hit_sphere(sphere, r, &current_t)
-			&& current_t > 0.001 && current_t < rec->t)
+		if (hit_sphere(sphere, r, &current_t) && current_t > 0.001
+			&& current_t < rec->t)
 		{
 			rec->t = current_t;
 			rec->p = ray_at(r, rec->t);
@@ -56,8 +56,8 @@ void	check_plane_hits(t_scene *s, t_ray r, t_hit_record *rec)
 	plane = s->planes;
 	while (plane)
 	{
-		if (hit_plane(plane, r, &current_t)
-			&& current_t > 0.001 && current_t < rec->t)
+		if (hit_plane(plane, r, &current_t) && current_t > 0.001
+			&& current_t < rec->t)
 		{
 			rec->t = current_t;
 			rec->p = ray_at(r, rec->t);
@@ -74,7 +74,7 @@ void	check_cylinder_hits(t_scene *s, t_ray r, t_hit_record *rec)
 {
 	t_cylinder	*cylinder;
 	double		current_t;
-	int			hit_type; 
+	int			hit_type;
 
 	cylinder = s->cylinders;
 	while (cylinder)

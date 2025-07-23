@@ -42,8 +42,8 @@ void	ft_cylinderclear(t_cylinder **cylinder)
 	}
 }
 
-t_cylinder	*ft_cylindernew(t_point coords, t_vec vector,
-	double *values, t_color rgb)
+t_cylinder	*ft_cylindernew(t_point coords, t_vec vector, double *values,
+		t_color rgb)
 {
 	t_cylinder	*cylinder;
 

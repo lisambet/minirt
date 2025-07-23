@@ -35,7 +35,7 @@ int	cleanup_mlx(t_scene *s, char *msg)
 	return (error_exit("Error\n"));
 }
 
-void cleanup_scene_data(t_scene *s)
+void	cleanup_scene_data(t_scene *s)
 {
 	if (s->spheres)
 		free_spheres(s->spheres);

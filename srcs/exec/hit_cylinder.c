@@ -12,14 +12,14 @@
 
 #include "minirt.h"
 
-bool    hit_cylinder_side(t_cylinder *cyl, t_ray r, double *t_side)
+bool	hit_cylinder_side(t_cylinder *cyl, t_ray r, double *t_side)
 {
-	double  a;
-	double  b; 
-	double  c;
-	double  t1;
-	double  t2;
-	double m;
+	double	a;
+	double	b;
+	double	c;
+	double	t1;
+	double	t2;
+	double	m;
 
 	get_cyl_eq_coefficients(cyl, r, &a, &b, &c);
 	*t_side = -1.0;
@@ -40,27 +40,27 @@ bool    hit_cylinder_side(t_cylinder *cyl, t_ray r, double *t_side)
 	return (*t_side > 0);
 }
 
-bool hit_cylinder_top_cap(t_cylinder *cyl, t_ray r, double *t_top_cap, double t_side_closest, double t_base_cap_closest)
+bool	hit_cylinder_top_cap(t_cylinder *cyl, t_ray r, double *t_top_cap,
+		double t_side_closest, double t_base_cap_closest)
 {
-	t_vec   n;
-	t_point p;
-	t_point top_center;
-	double  t;
-	double  denom;
+	t_vec	n;
+	t_point	p;
+	t_point	top_center;
+	double	t;
+	double	denom;
 
 	*t_top_cap = -1.0;
-
 	n = cyl->normal;
 	top_center = vec_add(cyl->p0, vec_mul(n, cyl->height));
 	denom = vec_dot(r.dir, n);
-
 	if (fabs(denom) > 1e-6)
 	{
 		t = vec_dot(vec_sub(top_center, r.orig), n) / denom;
 		p = ray_at(r, t);
 		if (t >= 0.001 && (t < t_side_closest || t_side_closest < 0)
 			&& (t < t_base_cap_closest || t_base_cap_closest < 0)
-			&& vec_length_sq(vec_sub(p, top_center)) <= (cyl->diameter * cyl->diameter) + 1e-6)
+			&& vec_length_sq(vec_sub(p, top_center)) <= (cyl->diameter
+				* cyl->diameter) + 1e-6)
 		{
 			*t_top_cap = t;
 			return (true);
@@ -69,15 +69,15 @@ bool hit_cylinder_top_cap(t_cylinder *cyl, t_ray r, double *t_top_cap, double t_
 	return (false);
 }
 
-bool hit_cylinder_base_cap(t_cylinder *cyl, t_ray r, double *t_base_cap, double t_side_closest)
+bool	hit_cylinder_base_cap(t_cylinder *cyl, t_ray r, double *t_base_cap,
+		double t_side_closest)
 {
-	t_vec   n;
-	t_point p;
-	double  t;
-	double  denom;
+	t_vec	n;
+	t_point	p;
+	double	t;
+	double	denom;
 
 	*t_base_cap = -1.0;
-
 	n = cyl->normal;
 	denom = vec_dot(r.dir, vec_neg(n));
 	if (fabs(denom) > 1e-6)
@@ -85,7 +85,8 @@ bool hit_cylinder_base_cap(t_cylinder *cyl, t_ray r, double *t_base_cap, double 
 		t = vec_dot(vec_sub(cyl->p0, r.orig), vec_neg(n)) / denom;
 		p = ray_at(r, t);
 		if (t >= 0.001 && (t < t_side_closest || t_side_closest < 0)
-			&& vec_length_sq(vec_sub(p, cyl->p0)) <= (cyl->diameter * cyl->diameter) + 1e-6)
+			&& vec_length_sq(vec_sub(p, cyl->p0)) <= (cyl->diameter
+				* cyl->diameter) + 1e-6)
 		{
 			*t_base_cap = t;
 			return (true);
@@ -94,7 +95,8 @@ bool hit_cylinder_base_cap(t_cylinder *cyl, t_ray r, double *t_base_cap, double 
 	return (false);
 }
 
-void update_closest_hit(double *t_current, int *type_current, double t_candidate, int type_candidate)
+void	update_closest_hit(double *t_current, int *type_current,
+		double t_candidate, int type_candidate)
 {
 	if (t_candidate > 0 && t_candidate < *t_current)
 	{

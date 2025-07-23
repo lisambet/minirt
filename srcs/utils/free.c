@@ -12,10 +12,10 @@
 
 #include "minirt.h"
 
-void free_spheres(t_sphere *head)
+void	free_spheres(t_sphere *head)
 {
-	t_sphere *current;
-	t_sphere *next;
+	t_sphere	*current;
+	t_sphere	*next;
 
 	current = head;
 	while (current)
@@ -26,10 +26,10 @@ void free_spheres(t_sphere *head)
 	}
 }
 
-void free_planes(t_plane *head)
+void	free_planes(t_plane *head)
 {
-	t_plane *current;
-	t_plane *next;
+	t_plane	*current;
+	t_plane	*next;
 
 	current = head;
 	while (current)
@@ -40,10 +40,10 @@ void free_planes(t_plane *head)
 	}
 }
 
-void free_cylinders(t_cylinder *head)
+void	free_cylinders(t_cylinder *head)
 {
-	t_cylinder *current;
-	t_cylinder *next;
+	t_cylinder	*current;
+	t_cylinder	*next;
 
 	current = head;
 	while (current)
