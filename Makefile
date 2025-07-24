@@ -14,6 +14,7 @@ SRCS				= 	srcs/main.c \
 						srcs/exec/events.c \
 						srcs/exec/hit_cylinder.c \
 						srcs/exec/light.c \
+						srcs/exec/move.c \
 						srcs/exec/objects.c \
 						srcs/exec/ray.c \
 						srcs/exec/shadow.c \

@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:21:36 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/24 13:28:21 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/24 14:12:22 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define WIDTH 1600
 # define HEIGHT 900
 # define SHADOW_BIAS 0.001
-# define SCALEDOWN 1
+# define SCALEDOWN 15
 # define PI 3.14159265358979323846
 #define MOVE_SPEED 10
 #define ROTATION_ANGLE 10.0
@@ -104,6 +104,12 @@ int				get_color_int(t_color c);
 void			events_init(t_scene *s);
 int				key_press(int keycode, t_scene *s);
 int				close_window(t_scene *s);
+
+t_vec	rotate_vec(t_vec v, t_vec axis, double angle_deg);
+void	move_light(int keycode, t_scene *s, bool *moved);
+void	move_camera(int keycode, t_scene *s, bool *moved);
+void	move_cylinder(int keycode, t_scene *s, bool *moved);
+void	rotate_camera(int keycode, t_scene *s, bool *moved);
 
 void			free_spheres(t_sphere *head);
 void			free_planes(t_plane *head);
