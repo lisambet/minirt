@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:21:36 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/24 14:12:22 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/24 14:24:01 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ double			vec_length_sq(t_vec v);
 double			vec_dot(t_vec a, t_vec b);
 t_vec			vec_normalize(t_vec v);
 t_vec			vec_cross(t_vec a, t_vec b);
-t_vec			rotate_vector(t_vec v, t_vec axis, double angle_degrees);
+//t_vec			rotate_vector(t_vec v, t_vec axis, double angle_degrees);
 double			get_m_projection(t_cylinder *cyl, t_ray r, double t);
 
 double			get_m_projection(t_cylinder *cyl, t_ray r, double t);
@@ -110,6 +110,7 @@ void	move_light(int keycode, t_scene *s, bool *moved);
 void	move_camera(int keycode, t_scene *s, bool *moved);
 void	move_cylinder(int keycode, t_scene *s, bool *moved);
 void	rotate_camera(int keycode, t_scene *s, bool *moved);
+void	move_plane(int keycode, t_scene *s, bool *moved);
 
 void			free_spheres(t_sphere *head);
 void			free_planes(t_plane *head);

@@ -6,31 +6,11 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 14:09:50 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/24 14:11:31 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/24 14:24:20 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-t_vec	rotate_vec(t_vec v, t_vec axis, double angle_deg)
-{
-	double	a;
-	double	c;
-	double	s;
-	t_vec	cross;
-	double	dot;
-
-	a = angle_deg * PI / 180.0;
-	c = cos(a);
-	s = sin(a);
-	axis = vec_normalize(axis);
-	dot = vec_dot(v, axis);
-	cross = vec_cross(axis, v);
-	v.x = v.x * c + cross.x * s + axis.x * dot * (1 - c);
-	v.y = v.y * c + cross.y * s + axis.y * dot * (1 - c);
-	v.z = v.z * c + cross.z * s + axis.z * dot * (1 - c);
-	return (v);
-}
 
 void	move_light(int keycode, t_scene *s, bool *moved)
 {
@@ -98,6 +78,40 @@ void	move_cylinder(int keycode, t_scene *s, bool *moved)
 	*moved = true;
 }
 
+void	move_plane(int keycode, t_scene *s, bool *moved)
+{
+	t_plane	*p;
+
+	p = s->planes;
+	if (!p)
+		return ;
+	if (keycode == 55) // 7
+		p->vtx = vec_add(p->vtx,
+				vec_mul(s->camera.look_dir, MOVE_SPEED));
+	else if (keycode == 57) // 9
+		p->vtx = vec_sub(p->vtx,
+				vec_mul(s->camera.look_dir, MOVE_SPEED));
+	else if (keycode == 49) // 1
+		p->vtx = vec_sub(p->vtx,
+				vec_mul(s->camera.right_vec, MOVE_SPEED));
+	else if (keycode == 51) // 3
+		p->vtx = vec_add(p->vtx,
+				vec_mul(s->camera.right_vec, MOVE_SPEED));
+	else if (keycode == 52) // 4
+		p->normal = rotate_vec(p->normal, vec(0, 1, 0), ROTATION_ANGLE);
+	else if (keycode == 54) // 6
+		p->normal = rotate_vec(p->normal, vec(0, 1, 0), -ROTATION_ANGLE);
+	else if (keycode == 56) // 8
+		p->normal = rotate_vec(p->normal,
+				s->camera.right_vec, ROTATION_ANGLE);
+	else if (keycode == 50) // 2
+		p->normal = rotate_vec(p->normal,
+				s->camera.right_vec, -ROTATION_ANGLE);
+	else
+		return ;
+	p->normal = vec_normalize(p->normal);
+	*moved = true;
+}
 void	rotate_camera(int keycode, t_scene *s, bool *moved)
 {
 	if (keycode == XK_Left)

@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:05:09 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/24 14:12:29 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/24 14:25:34 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	key_press(int keycode, t_scene *s)
 	move_camera(keycode, s, &moved);
 	move_light(keycode, s, &moved);
 	move_cylinder(keycode, s, &moved);
+	move_plane(keycode, s, &moved);
 	rotate_camera(keycode, s, &moved);
 	if (moved)
 	{

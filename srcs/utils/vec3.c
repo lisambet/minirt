@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 12:14:53 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/24 10:24:45 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/24 14:18:01 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,23 @@ t_vec vec_cross(t_vec a, t_vec b)
     result.z = (a.x * b.y) - (a.y * b.x);
 
     return result;
+}
+t_vec	rotate_vec(t_vec v, t_vec axis, double angle_deg)
+{
+	double	a;
+	double	c;
+	double	s;
+	t_vec	cross;
+	double	dot;
+
+	a = angle_deg * PI / 180.0;
+	c = cos(a);
+	s = sin(a);
+	axis = vec_normalize(axis);
+	dot = vec_dot(v, axis);
+	cross = vec_cross(axis, v);
+	v.x = v.x * c + cross.x * s + axis.x * dot * (1 - c);
+	v.y = v.y * c + cross.y * s + axis.y * dot * (1 - c);
+	v.z = v.z * c + cross.z * s + axis.z * dot * (1 - c);
+	return (v);
 }
