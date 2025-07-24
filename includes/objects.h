@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 03:31:05 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/07/23 14:39:25 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/24 11:04:01 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_camera
 	t_vec				look_dir;
 	t_vec				up_vec;
 	bool				enabled;
+	 t_vec   right_vec; 
 }						t_camera;
 
 typedef struct s_amb

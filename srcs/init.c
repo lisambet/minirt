@@ -3,31 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:46:11 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/23 15:43:50 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/24 13:11:16 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	init_camera(t_scene *s)
+void	get_camera_basis(t_vec dir, t_vec *u, t_vec *v, t_vec *w)
 {
-	double	aspect_ratio;
-	double	viewport_height;
-	double	viewport_width;
+	t_vec	up;
 
-	aspect_ratio = (double)WIDTH / HEIGHT;
-	viewport_height = 3.0;
-	viewport_width = viewport_height * aspect_ratio;
-	s->camera.fov = 1;
-	s->origin = vec(0, 0, 0);
-	s->horizontal = vec(viewport_width, 0, 0);
-	s->vertical = vec(0, viewport_height, 0);
-	s->lower_left_corner = vec_sub(vec_sub(vec_sub(s->origin,
-					vec_div(s->horizontal, 2)), vec_div(s->vertical, 2)), vec(0,
-				0, s->camera.fov));
+	dir = vec_normalize(dir);
+	*w = vec_neg(dir);
+	up = vec(0, 1, 0);
+	if (fabs(vec_dot(dir, up)) > 0.9999)
+		up = vec(0, 0, 1);
+	*u = vec_normalize(vec_cross(up, *w));
+	*v = vec_cross(*w, *u);
+}
+
+void	recalculate_camera_basis(t_scene *s)
+{
+	t_vec	u;
+	t_vec	v;
+	t_vec	w;
+	double	ratio;
+	double	theta;
+	double	h;
+
+	ratio = (double)WIDTH / HEIGHT;
+	theta = s->camera.fov * PI / 180.0;
+	h = tan(theta / 2.0);
+	get_camera_basis(s->camera.dir, &u, &v, &w);
+	s->origin = s->camera.pos;
+	s->horizontal = vec_mul(u, ratio * 2.0 * h);
+	s->vertical = vec_mul(v, 2.0 * h);
+	s->lower_left_corner = vec_sub(s->origin, vec_mul(w, 1.0));
+	s->lower_left_corner = vec_sub(s->lower_left_corner,
+			vec_div(s->horizontal, 2.0));
+	s->lower_left_corner = vec_sub(s->lower_left_corner,
+			vec_div(s->vertical, 2.0));
+	s->camera.look_dir = s->camera.dir;
+	s->camera.up_vec = v;
+	s->camera.right_vec = u;
 }
 
 void	init_scene(t_scene *s)
@@ -36,6 +57,7 @@ void	init_scene(t_scene *s)
 	int	line_length;
 	int	endian;
 
+	s->camera.dir = vec(0, 0, 1);
 	s->mlx = mlx_init();
 	if (!s->mlx)
 		exit(error_exit("Failed to initialize mlx"));
@@ -47,7 +69,7 @@ void	init_scene(t_scene *s)
 		exit(cleanup_window(s, "Failed to create image"));
 	s->data = (int *)mlx_get_data_addr(s->img, &bits_per_pixel, &line_length,
 			&endian);
-	init_camera(s);
+	recalculate_camera_basis(s);
 	events_init(s);
 }
 

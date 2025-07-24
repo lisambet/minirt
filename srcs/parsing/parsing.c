@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 15:39:28 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/07/12 15:23:26 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/24 10:13:45 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,12 @@ void	fill_scene(t_scene *scene)
 			return ;
 		}
 		fill_objects(scene, tmp[i]);
+		free(tmp[i]);
 		i++;
 	}
 	ft_tabfree(scene->input, ft_tablen(scene->input));
 	scene->input = tmp;
+	free(tmp);
 	check_values(scene);
 	if (scene->error)
 		ft_printerror("Objects are not valid.");

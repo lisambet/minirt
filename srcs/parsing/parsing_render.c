@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_render.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 15:48:17 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/07/23 15:45:16 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/24 10:05:13 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	parse_camera(char *input, t_scene *scene)
 		ft_atod(tab[3])};
 	scene->camera.dir = vec_normalize((t_point){ft_atod(tab[4]),
 			ft_atod(tab[5]), ft_atod(tab[6])});
-	scene->camera.fov = ft_atoi(tab[7]);
+	scene->camera.fov = ft_atod(tab[7]);
 	scene->camera.enabled = true;
 	ft_tabfree(tab, ft_tablen(tab));
 }

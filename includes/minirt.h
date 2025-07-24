@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:21:36 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/23 15:43:24 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/24 13:28:21 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@
 # define HEIGHT 900
 # define SHADOW_BIAS 0.001
 # define SCALEDOWN 1
-// #define MOVE_SPEED 1.0
-// #define ROTATION_ANGLE 10.0
+# define PI 3.14159265358979323846
+#define MOVE_SPEED 10
+#define ROTATION_ANGLE 10.0
 
 typedef struct s_hit_record
 {
