@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 14:09:50 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/25 14:58:46 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/25 16:28:27 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 
 void	move_light(int keycode, t_scene *s, bool *moved)
 {
-	if (keycode == 1733)
+	if (keycode == XK_t)
 		s->light.vtx = vec_add(s->light.vtx,
 				vec_mul(s->camera.look_dir, MOVE_SPEED));
-	else if (keycode == 1744)
+	else if (keycode == XK_g)
 		s->light.vtx = vec_sub(s->light.vtx,
 				vec_mul(s->camera.look_dir, MOVE_SPEED));
-	else if (keycode == 1729)
+	else if (keycode == XK_f)
 		s->light.vtx = vec_sub(s->light.vtx,
 				vec_mul(s->camera.right_vec, MOVE_SPEED));
-	else if (keycode == 1746)
+	else if (keycode == XK_h)
 		s->light.vtx = vec_add(s->light.vtx,
 				vec_mul(s->camera.right_vec, MOVE_SPEED));
 	else
@@ -34,16 +34,17 @@ void	move_light(int keycode, t_scene *s, bool *moved)
 
 void	move_camera(int keycode, t_scene *s, bool *moved)
 {
-	if (keycode == 119)
+	//printf("%d\n", keycode);
+	if (keycode == XK_w)
 		s->camera.pos = vec_add(s->camera.pos,
 				vec_mul(s->camera.look_dir, MOVE_SPEED));
-	else if (keycode == 115)
+	else if (keycode == XK_s)
 		s->camera.pos = vec_sub(s->camera.pos,
 				vec_mul(s->camera.look_dir, MOVE_SPEED));
-	else if (keycode == 97)
+	else if (keycode == XK_a)
 		s->camera.pos = vec_sub(s->camera.pos,
 				vec_mul(s->camera.right_vec, MOVE_SPEED));
-	else if (keycode == 100)
+	else if (keycode == XK_d)
 		s->camera.pos = vec_add(s->camera.pos,
 				vec_mul(s->camera.right_vec, MOVE_SPEED));
 	else if (keycode == XK_space)
@@ -62,17 +63,18 @@ void	move_cylinder(int keycode, t_scene *s, bool *moved)
 	c = s->cylinders;
 	if (!c)
 		return ;
-	if (keycode == XK_I)
-		c->vtx = vec_add(c->vtx,
-				vec_mul(s->camera.look_dir, MOVE_SPEED));
-	else if (keycode == XK_K)
-		c->vtx = vec_sub(c->vtx,
-				vec_mul(s->camera.look_dir, MOVE_SPEED));
-	else if (keycode == XK_J)
-		c->vtx = vec_sub(c->vtx,
+	if (keycode == XK_i)
+{	printf("%d\n", keycode);
+		c->vtx = vec_add(c->p0,
+				vec_mul(s->camera.dir, MOVE_SPEED));}
+	else if (keycode == XK_k)
+		c->vtx = vec_sub(c->p0,
+				vec_mul(s->camera.dir, MOVE_SPEED));
+	else if (keycode == XK_j)
+		c->vtx = vec_sub(c->p0,
 				vec_mul(s->camera.right_vec, MOVE_SPEED));
-	else if (keycode == XK_L)
-		c->vtx = vec_add(c->vtx,
+	else if (keycode == XK_l)
+		c->vtx = vec_add(c->p0,
 				vec_mul(s->camera.right_vec, MOVE_SPEED));
 	else
 		return ;
