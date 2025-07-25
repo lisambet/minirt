@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 12:14:53 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/24 14:18:01 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/25 14:54:39 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,18 @@ t_vec	vec_normalize(t_vec v)
 		return (vec(0, 0, 0));
 	return (vec_div(v, length));
 }
-t_vec vec_cross(t_vec a, t_vec b)
+
+t_vec	vec_cross(t_vec a, t_vec b)
 {
-    t_vec result;
+	t_vec	result;
 
-    result.x = (a.y * b.z) - (a.z * b.y);
-    result.y = (a.z * b.x) - (a.x * b.z);
-    result.z = (a.x * b.y) - (a.y * b.x);
+	result.x = (a.y * b.z) - (a.z * b.y);
+	result.y = (a.z * b.x) - (a.x * b.z);
+	result.z = (a.x * b.y) - (a.y * b.x);
 
-    return result;
+	return result;
 }
+
 t_vec	rotate_vec(t_vec v, t_vec axis, double angle_deg)
 {
 	double	a;

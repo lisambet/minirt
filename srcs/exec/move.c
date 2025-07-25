@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 14:09:50 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/24 14:24:20 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/25 14:58:46 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include <stdio.h>
 
 void	move_light(int keycode, t_scene *s, bool *moved)
 {
@@ -33,16 +34,16 @@ void	move_light(int keycode, t_scene *s, bool *moved)
 
 void	move_camera(int keycode, t_scene *s, bool *moved)
 {
-	if (keycode == 1731)
+	if (keycode == 119)
 		s->camera.pos = vec_add(s->camera.pos,
 				vec_mul(s->camera.look_dir, MOVE_SPEED));
-	else if (keycode == 1753)
+	else if (keycode == 115)
 		s->camera.pos = vec_sub(s->camera.pos,
 				vec_mul(s->camera.look_dir, MOVE_SPEED));
-	else if (keycode == 1734)
+	else if (keycode == 97)
 		s->camera.pos = vec_sub(s->camera.pos,
 				vec_mul(s->camera.right_vec, MOVE_SPEED));
-	else if (keycode == 1751)
+	else if (keycode == 100)
 		s->camera.pos = vec_add(s->camera.pos,
 				vec_mul(s->camera.right_vec, MOVE_SPEED));
 	else if (keycode == XK_space)
