@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:21:36 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/25 15:24:27 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/26 13:58:38 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,16 @@
 # define PI 3.14159265358979323846
 # define MOVE_SPEED 1
 # define ROTATION_ANGLE 10.0
+
+enum e_selected_object_type
+{
+	SEL_NONE = -1,
+	SEL_CAMERA,
+	SEL_LIGHT,
+	SEL_SPHERE,
+	SEL_PLANE,
+	SEL_CYLINDER
+};
 
 typedef struct s_hit_record
 {
@@ -63,6 +73,8 @@ typedef struct s_scene
 	char		**input;
 	int			error;
 	int			should_exit;
+enum			e_selected_object_type selected_object_type;
+	void						*selected_object_ptr;
 }				t_scene;
 
 typedef struct s_ray
@@ -87,7 +99,6 @@ double			vec_length_sq(t_vec v);
 double			vec_dot(t_vec a, t_vec b);
 t_vec			vec_normalize(t_vec v);
 t_vec			vec_cross(t_vec a, t_vec b);
-//t_vec			rotate_vector(t_vec v, t_vec axis, double angle_degrees);
 double			get_m_projection(t_cylinder *cyl, t_ray r, double t);
 
 double			get_m_projection(t_cylinder *cyl, t_ray r, double t);
@@ -106,11 +117,35 @@ int				key_press(int keycode, t_scene *s);
 int				close_window(t_scene *s);
 
 t_vec	rotate_vec(t_vec v, t_vec axis, double angle_deg);
+void	rotate_camera(t_scene *s, int keycode);
+void	rotate_plane(t_scene *s, int keycode, t_vec right);
+void	rotate_cylinder(t_scene *s, int keycode, t_vec right);
+void	rotate_selected_object(t_scene *s, int keycode, t_vec right, bool *moved);
+
 void	move_light(int keycode, t_scene *s, bool *moved);
 void	move_camera(int keycode, t_scene *s, bool *moved);
 void	move_cylinder(int keycode, t_scene *s, bool *moved);
-void	rotate_camera(int keycode, t_scene *s, bool *moved);
 void	move_plane(int keycode, t_scene *s, bool *moved);
+
+void            select_next_object(t_scene *s);
+void	select_next_cylinder(t_scene *s);
+void	select_next_plane(t_scene *s);
+void	select_next_sphere(t_scene *s);
+void	select_default(t_scene *s);
+void	resize_selected_object(t_scene *s, int keycode, bool *moved);
+void	rotate_selected_object_horizontal(t_scene *s, int keycode, t_vec obj_up_vec, bool *moved);
+void	move_selected_object_vertical(t_scene *s, bool up, bool *moved);
+void	move_selected_object(t_scene *s, t_vec dir, bool *moved, int sign);
+void	init_plane_cylinder_vectors(t_scene *s,	t_vec *obj_right_vec, t_vec *obj_up_vec);
+void	*get_next_node(void *current_ptr, int current_type);
+void	select_after_light(t_scene *s);
+void	select_after_all_spheres(t_scene *s);
+void	select_after_all_planes(t_scene *s);
+void	select_after_all_cylinders(t_scene *s);
+void	select_camera_to_light(t_scene *s);
+void	print_selected_object(t_scene *s);
+void    apply_transform_to_selected(t_scene *s, int keycode, bool *moved);
+
 
 void			free_spheres(t_sphere *head);
 void			free_planes(t_plane *head);

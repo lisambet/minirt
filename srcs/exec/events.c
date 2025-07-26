@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:05:09 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/24 14:25:34 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/26 09:47:08 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,25 @@ int	key_press(int keycode, t_scene *s)
 	bool	moved;
 
 	moved = false;
+	printf("Key pressed: %d\n", keycode);
 	if (keycode == 65307)
 		close_window(s);
-	move_camera(keycode, s, &moved);
-	move_light(keycode, s, &moved);
-	move_cylinder(keycode, s, &moved);
-	move_plane(keycode, s, &moved);
-	rotate_camera(keycode, s, &moved);
+	else if (keycode == XK_Tab)
+	{
+		select_next_object(s);
+		moved = true;
+	}
+	else
+		apply_transform_to_selected(s, keycode, &moved);
 	if (moved)
 	{
-		s->camera.dir = vec_normalize(s->camera.dir);
 		recalculate_camera_basis(s);
 		render(s, 0, 0);
 		mlx_put_image_to_window(s->mlx, s->win, s->img, 0, 0);
-
 	}
 	return (0);
 }
+
 
 int	close_window(t_scene *s)
 {

@@ -17,7 +17,11 @@ SRCS				= 	srcs/main.c \
 						srcs/exec/move.c \
 						srcs/exec/objects.c \
 						srcs/exec/ray.c \
+						srcs/exec/rotate.c \
 						srcs/exec/shadow.c \
+						srcs/exec/select.c \
+						srcs/exec/select2.c \
+						srcs/exec/transform.c \
 						srcs/parsing/file_management.c \
 						srcs/parsing/parsing_checks.c \
 						srcs/parsing/parsing_objects.c \

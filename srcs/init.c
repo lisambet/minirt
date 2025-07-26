@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:46:11 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/24 13:11:16 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/26 08:36:25 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ void	init_scene(t_scene *s)
 	s->data = (int *)mlx_get_data_addr(s->img, &bits_per_pixel, &line_length,
 			&endian);
 	recalculate_camera_basis(s);
+	s->selected_object_type = SEL_CAMERA;
+	s->selected_object_ptr = &s->camera;
+	printf("Selected object: Camera\n");
 	events_init(s);
 }
 
