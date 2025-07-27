@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 14:09:50 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/27 12:36:43 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/27 13:00:22 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	resize_selected_object(t_scene *s, int keycode, bool *moved)
 {
 	t_sphere	*sp;
 	t_cylinder	*c;
+	double		ratio;
 
 	if (s->selected_object == SEL_SPHERE)
 	{
@@ -74,10 +75,12 @@ void	resize_selected_object(t_scene *s, int keycode, bool *moved)
 	else if (s->selected_object == SEL_CYLINDER)
 	{
 		c = (t_cylinder *)s->sel_obj_ptr;
+		ratio = c->height / c->diameter;
 		if (keycode == XK_KP_Add)
 			c->diameter += 1;
-		else if (keycode == XK_KP_Subtract && c->diameter > 0)
+		else if (keycode == XK_KP_Subtract && c->diameter > 0 && c->height > 0)
 			c->diameter -= 1;
+		c->height = c->diameter * ratio;
 		*moved = true;
 	}
 }

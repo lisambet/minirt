@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:21:36 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/27 12:39:33 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/27 13:11:43 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define WIDTH 1600
 # define HEIGHT 900
 # define SHADOW_BIAS 0.001
-# define SCALEDOWN 5
+# define SCALEDOWN 3
 # define PI 3.14159265358979323846
 # define MOVE_SPEED 1
 # define ROTATION_ANGLE 10.0
@@ -125,11 +125,6 @@ void						rotate_cylinder(t_scene *s, int keycode,
 								t_vec right);
 void						rotate_selected_object(t_scene *s, int keycode,
 								t_vec right, bool *moved);
-
-void						move_light(int keycode, t_scene *s, bool *moved);
-void						move_camera(int keycode, t_scene *s, bool *moved);
-void						move_cylinder(int keycode, t_scene *s, bool *moved);
-void						move_plane(int keycode, t_scene *s, bool *moved);
 
 void						select_next_object(t_scene *s);
 void						select_next_cylinder(t_scene *s);
