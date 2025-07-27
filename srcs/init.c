@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:46:11 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/27 12:32:54 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/27 20:11:42 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	init_scene(t_scene *s)
 	int	line_length;
 	int	endian;
 
-	s->camera.dir = vec(0, 0, 1);
+	//s->camera.dir = vec(0, 0, 1);
 	s->mlx = mlx_init();
 	if (!s->mlx)
 		exit(error_exit("Failed to initialize mlx"));

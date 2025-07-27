@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 13:48:09 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/27 12:32:54 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/27 20:16:54 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	rotate_plane(t_scene *s, int keycode, t_vec right)
 void	rotate_cylinder(t_scene *s, int keycode, t_vec right)
 {
 	t_cylinder	*c;
+	(void)right;
 
 	c = (t_cylinder *)s->sel_obj_ptr;
 	if (keycode == XK_Left)
@@ -54,9 +55,9 @@ void	rotate_cylinder(t_scene *s, int keycode, t_vec right)
 	else if (keycode == XK_Right)
 		c->normal = rotate_vec(c->normal, vec(0, 1, 0), -ROTATION_ANGLE);
 	else if (keycode == XK_Up)
-		c->normal = rotate_vec(c->normal, right, ROTATION_ANGLE);
+		c->normal = rotate_vec(c->normal, vec(1, 0, 0), ROTATION_ANGLE);
 	else if (keycode == XK_Down)
-		c->normal = rotate_vec(c->normal, right, -ROTATION_ANGLE);
+		c->normal = rotate_vec(c->normal, vec(1, 0, 0), -ROTATION_ANGLE);
 	c->normal = vec_normalize(c->normal);
 }
 
