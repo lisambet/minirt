@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 13:48:09 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/27 20:16:54 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/27 20:37:10 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,17 @@ void	rotate_camera(t_scene *s, int keycode)
 void	rotate_plane(t_scene *s, int keycode, t_vec right)
 {
 	t_plane	*p;
+	(void)right;
 
 	p = (t_plane *)s->sel_obj_ptr;
 	if (keycode == XK_Left)
-		p->normal = rotate_vec(p->normal, vec(0, 0, 1), ROTATION_ANGLE);
+		p->normal = rotate_vec(p->normal, vec(1, 0, 0), ROTATION_ANGLE);
 	else if (keycode == XK_Right)
-		p->normal = rotate_vec(p->normal, vec(0, 0, 1), -ROTATION_ANGLE);
+		p->normal = rotate_vec(p->normal, vec(1, 0, 0), -ROTATION_ANGLE);
 	else if (keycode == XK_Up)
-		p->normal = rotate_vec(p->normal, right, ROTATION_ANGLE);
+		p->normal = rotate_vec(p->normal, vec(0, 0, 1), ROTATION_ANGLE);
 	else if (keycode == XK_Down)
-		p->normal = rotate_vec(p->normal, right, -ROTATION_ANGLE);
+		p->normal = rotate_vec(p->normal, vec(0, 0, 1), -ROTATION_ANGLE);
 	p->normal = vec_normalize(p->normal);
 }
 
