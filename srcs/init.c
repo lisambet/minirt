@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:46:11 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/26 08:36:25 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/27 12:32:54 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,11 @@ void	get_camera_basis(t_vec dir, t_vec *u, t_vec *v, t_vec *w)
 	*v = vec_cross(*w, *u);
 }
 
-void	recalculate_camera_basis(t_scene *s)
+void	recalculate_camera_basis(t_scene *s, double ratio)
 {
 	t_vec	u;
 	t_vec	v;
 	t_vec	w;
-	double	ratio;
 	double	theta;
 	double	h;
 
@@ -42,10 +41,10 @@ void	recalculate_camera_basis(t_scene *s)
 	s->horizontal = vec_mul(u, ratio * 2.0 * h);
 	s->vertical = vec_mul(v, 2.0 * h);
 	s->lower_left_corner = vec_sub(s->origin, vec_mul(w, 1.0));
-	s->lower_left_corner = vec_sub(s->lower_left_corner,
-			vec_div(s->horizontal, 2.0));
-	s->lower_left_corner = vec_sub(s->lower_left_corner,
-			vec_div(s->vertical, 2.0));
+	s->lower_left_corner = vec_sub(s->lower_left_corner, vec_div(s->horizontal,
+				2.0));
+	s->lower_left_corner = vec_sub(s->lower_left_corner, vec_div(s->vertical,
+				2.0));
 	s->camera.look_dir = s->camera.dir;
 	s->camera.up_vec = v;
 	s->camera.right_vec = u;
@@ -69,9 +68,9 @@ void	init_scene(t_scene *s)
 		exit(cleanup_window(s, "Failed to create image"));
 	s->data = (int *)mlx_get_data_addr(s->img, &bits_per_pixel, &line_length,
 			&endian);
-	recalculate_camera_basis(s);
-	s->selected_object_type = SEL_CAMERA;
-	s->selected_object_ptr = &s->camera;
+	recalculate_camera_basis(s, 0);
+	s->selected_object = SEL_CAMERA;
+	s->sel_obj_ptr = &s->camera;
 	printf("Selected object: Camera\n");
 	events_init(s);
 }

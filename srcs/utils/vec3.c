@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 12:14:53 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/25 14:54:39 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/27 12:38:31 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ t_vec	vec_cross(t_vec a, t_vec b)
 	result.x = (a.y * b.z) - (a.z * b.y);
 	result.y = (a.z * b.x) - (a.x * b.z);
 	result.z = (a.x * b.y) - (a.y * b.x);
-
-	return result;
+	return (result);
 }
 
 t_vec	rotate_vec(t_vec v, t_vec axis, double angle_deg)

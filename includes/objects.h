@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 03:31:05 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/07/25 17:02:42 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/27 12:43:14 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ typedef struct s_vec
 	double				x;
 	double				y;
 	double				z;
-} t_vec, t_point;
+}						t_vec;
+
+typedef t_vec			t_point;
 
 typedef struct s_color
 {
@@ -55,7 +57,7 @@ typedef struct s_camera
 	t_vec				look_dir;
 	t_vec				up_vec;
 	bool				enabled;
-	t_vec   			right_vec; 
+	t_vec				right_vec;
 }						t_camera;
 
 typedef struct s_amb

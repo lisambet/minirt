@@ -6,10 +6,9 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 08:38:55 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/26 13:57:15 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/27 12:38:21 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minirt.h"
 
@@ -42,52 +41,53 @@ void	*get_next_node(void *current_ptr, int current_type)
 	return (NULL);
 }
 
-
 void	print_selected_object(t_scene *s)
 {
-	if (s->selected_object_type == SEL_CAMERA)
+	if (s->selected_object == SEL_CAMERA)
 		printf("Selected object: Camera\n");
-	else if (s->selected_object_type == SEL_LIGHT)
+	else if (s->selected_object == SEL_LIGHT)
 		printf("Selected object: Light\n");
-	else if (s->selected_object_type == SEL_SPHERE)
+	else if (s->selected_object == SEL_SPHERE)
 		printf("Selected object: Sphere at (%.2f, %.2f, %.2f)\n",
-			((t_sphere *)s->selected_object_ptr)->center.x,
-			((t_sphere *)s->selected_object_ptr)->center.y,
-			((t_sphere *)s->selected_object_ptr)->center.z);
-	else if (s->selected_object_type == SEL_PLANE)
+			((t_sphere *)s->sel_obj_ptr)->center.x,
+			((t_sphere *)s->sel_obj_ptr)->center.y,
+			((t_sphere *)s->sel_obj_ptr)->center.z);
+	else if (s->selected_object == SEL_PLANE)
 		printf("Selected object: Plane at (%.2f, %.2f, %.2f)\n",
-			((t_plane *)s->selected_object_ptr)->p0.x,
-			((t_plane *)s->selected_object_ptr)->p0.y,
-			((t_plane *)s->selected_object_ptr)->p0.z);
-	else if (s->selected_object_type == SEL_CYLINDER)
+			((t_plane *)s->sel_obj_ptr)->p0.x,
+			((t_plane *)s->sel_obj_ptr)->p0.y,
+			((t_plane *)s->sel_obj_ptr)->p0.z);
+	else if (s->selected_object == SEL_CYLINDER)
 		printf("Selected object: Cylinder at (%.2f, %.2f, %.2f)\n",
-			((t_cylinder *)s->selected_object_ptr)->p0.x,
-			((t_cylinder *)s->selected_object_ptr)->p0.y,
-			((t_cylinder *)s->selected_object_ptr)->p0.z);
+			((t_cylinder *)s->sel_obj_ptr)->p0.x,
+			((t_cylinder *)s->sel_obj_ptr)->p0.y,
+			((t_cylinder *)s->sel_obj_ptr)->p0.z);
 	else
 		printf("Selected object: None\n");
 }
 
-void	init_plane_cylinder_vectors(t_scene *s,	t_vec *obj_right_vec, t_vec *obj_up_vec)
+void	init_plane_cylinder_vectors(t_scene *s, t_vec *obj_right_vec,
+		t_vec *obj_up_vec)
 {
-	if (s->selected_object_type == SEL_PLANE)
-	{
-		t_plane	*p;
+	t_plane		*p;
+	t_cylinder	*c;
 
-		p = (t_plane *)s->selected_object_ptr;
+	if (s->selected_object == SEL_PLANE)
+	{
+		p = (t_plane *)s->sel_obj_ptr;
 		*obj_up_vec = vec_normalize(p->normal);
 		*obj_right_vec = vec_normalize(vec_cross(*obj_up_vec, vec(0, 1, 0)));
 		if (vec_length_sq(*obj_right_vec) < 1e-6)
-			*obj_right_vec = vec_normalize(vec_cross(*obj_up_vec, vec(0, 0, 1)));
+			*obj_right_vec = vec_normalize(vec_cross(*obj_up_vec, vec(0, 0,
+							1)));
 	}
-	else if (s->selected_object_type == SEL_CYLINDER)
+	else if (s->selected_object == SEL_CYLINDER)
 	{
-		t_cylinder	*c;
-
-		c = (t_cylinder *)s->selected_object_ptr;
+		c = (t_cylinder *)s->sel_obj_ptr;
 		*obj_up_vec = vec_normalize(c->normal);
 		*obj_right_vec = vec_normalize(vec_cross(*obj_up_vec, vec(0, 1, 0)));
 		if (vec_length_sq(*obj_right_vec) < 1e-6)
-			*obj_right_vec = vec_normalize(vec_cross(*obj_up_vec, vec(0, 0, 1)));
+			*obj_right_vec = vec_normalize(vec_cross(*obj_up_vec, vec(0, 0,
+							1)));
 	}
 }

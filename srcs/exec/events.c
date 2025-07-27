@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:05:09 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/26 09:47:08 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/27 12:31:06 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,12 @@ int	key_press(int keycode, t_scene *s)
 		apply_transform_to_selected(s, keycode, &moved);
 	if (moved)
 	{
-		recalculate_camera_basis(s);
+		recalculate_camera_basis(s, 0);
 		render(s, 0, 0);
 		mlx_put_image_to_window(s->mlx, s->win, s->img, 0, 0);
 	}
 	return (0);
 }
-
 
 int	close_window(t_scene *s)
 {
