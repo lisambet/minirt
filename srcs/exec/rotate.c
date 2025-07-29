@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 13:48:09 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/27 20:37:10 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:01:53 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,9 @@ void	rotate_camera(t_scene *s, int keycode)
 				s->camera.right_vec, -ROTATION_ANGLE);
 }
 
-void	rotate_plane(t_scene *s, int keycode, t_vec right)
+void	rotate_plane(t_scene *s, int keycode)
 {
 	t_plane	*p;
-	(void)right;
 
 	p = (t_plane *)s->sel_obj_ptr;
 	if (keycode == XK_Left)
@@ -45,10 +44,9 @@ void	rotate_plane(t_scene *s, int keycode, t_vec right)
 	p->normal = vec_normalize(p->normal);
 }
 
-void	rotate_cylinder(t_scene *s, int keycode, t_vec right)
+void	rotate_cylinder(t_scene *s, int keycode)
 {
 	t_cylinder	*c;
-	(void)right;
 
 	c = (t_cylinder *)s->sel_obj_ptr;
 	if (keycode == XK_Left)
@@ -63,13 +61,13 @@ void	rotate_cylinder(t_scene *s, int keycode, t_vec right)
 }
 
 void	rotate_selected_object(t_scene *s,
-			int keycode, t_vec right, bool *moved)
+			int keycode, bool *moved)
 {
 	if (s->selected_object == SEL_CAMERA)
 		rotate_camera(s, keycode);
 	else if (s->selected_object == SEL_PLANE)
-		rotate_plane(s, keycode, right);
+		rotate_plane(s, keycode);
 	else if (s->selected_object == SEL_CYLINDER)
-		rotate_cylinder(s, keycode, right);
+		rotate_cylinder(s, keycode);
 	*moved = true;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 14:09:50 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/27 13:00:22 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:02:25 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	resize_selected_object(t_scene *s, int keycode, bool *moved)
 		sp = (t_sphere *)s->sel_obj_ptr;
 		if (keycode == XK_KP_Add)
 			sp->diameter += 1;
-		else if (keycode == XK_KP_Subtract && sp->diameter > 0)
+		else if (keycode == XK_KP_Subtract && sp->diameter > 1)
 			sp->diameter -= 1;
 		*moved = true;
 	}
@@ -78,7 +78,7 @@ void	resize_selected_object(t_scene *s, int keycode, bool *moved)
 		ratio = c->height / c->diameter;
 		if (keycode == XK_KP_Add)
 			c->diameter += 1;
-		else if (keycode == XK_KP_Subtract && c->diameter > 0 && c->height > 0)
+		else if (keycode == XK_KP_Subtract && c->diameter > 1 && c->height > 1)
 			c->diameter -= 1;
 		c->height = c->diameter * ratio;
 		*moved = true;
@@ -105,7 +105,7 @@ void	apply_transform_to_selected(t_scene *s, int keycode, bool *moved)
 		move_selected_object_vertical(s, false, moved);
 	else if (keycode == XK_Left || keycode == XK_Right || keycode == XK_Up
 		|| keycode == XK_Down)
-		rotate_selected_object(s, keycode, obj_right_vec, moved);
+		rotate_selected_object(s, keycode, moved);
 	else if (keycode == XK_KP_Add || keycode == XK_KP_Subtract)
 		resize_selected_object(s, keycode, moved);
 }

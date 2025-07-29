@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:05:09 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/27 12:31:06 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:00:08 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,10 @@ int	key_press(int keycode, t_scene *s)
 	bool	moved;
 
 	moved = false;
-	printf("Key pressed: %d\n", keycode);
 	if (keycode == 65307)
 		close_window(s);
 	else if (keycode == XK_Tab)
-	{
 		select_next_object(s);
-		moved = true;
-	}
 	else
 		apply_transform_to_selected(s, keycode, &moved);
 	if (moved)
