@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:21:36 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/29 14:30:50 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/29 14:54:18 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define WIDTH 1600
 # define HEIGHT 900
 # define SHADOW_BIAS 0.001
-# define SCALEDOWN 1
+# define SCALEDOWN 15
 # define PI 3.14159265358979323846
 # define MOVE_SPEED 1
 # define ROTATION_ANGLE 10.0
@@ -215,6 +215,9 @@ void						draw_blocks(t_scene *s, size_t x, size_t y,
 
 int							ft_printerror(char *str);
 void						set_error(t_scene *scene);
+int							ratio_valid(float ratio);
+int							vec_valid(t_point points);
+int							rgb_valid(t_color color);
 int							free_structs(t_scene scene);
 void						prefill_scene(t_scene *scene);
 
