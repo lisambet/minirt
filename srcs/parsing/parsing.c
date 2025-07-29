@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 15:39:28 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/07/25 15:34:25 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/29 14:21:32 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ void	fill_objects(t_scene *scene, char *tmp)
 		parse_camera(tmp, scene);
 	else if (!ft_strncmp(tmp, "L ", 2))
 		parse_diffuse(tmp, scene);
-	else if (!ft_strncmp(tmp, "sp ", 2))
+	else if (!ft_strncmp(tmp, "sp ", 3))
 		parse_sphere(tmp, scene);
-	else if (!ft_strncmp(tmp, "pl ", 2))
+	else if (!ft_strncmp(tmp, "pl ", 3))
 		parse_plane(tmp, scene);
-	else if (!ft_strncmp(tmp, "cy ", 2))
+	else if (!ft_strncmp(tmp, "cy ", 3))
 		parse_cylinder(tmp, scene);
 	else
 		scene->error = 1;
@@ -82,10 +82,9 @@ void	fill_scene(t_scene *scene)
 		i++;
 	}
 	ft_tabfree(scene->input, ft_tablen(scene->input));
-	scene->input = tmp;
-	if (scene->camera.enabled)
-		ft_tabfree(tmp, ft_tablen(tmp));
+	ft_tabfree(tmp, ft_tablen(tmp));
 	check_values(scene);
+	scene->input = NULL;
 	if (scene->error)
 		ft_printerror("Objects are not valid.");
 }

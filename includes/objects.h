@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 03:31:05 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/07/27 12:43:14 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/29 13:45:00 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_camera
 {
 	t_point				pos;
 	t_vec				dir;
-	double				fov;
+	int					fov;
 	t_vec				look_dir;
 	t_vec				up_vec;
 	bool				enabled;

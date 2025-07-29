@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:21:36 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/29 12:03:55 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/29 14:30:50 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,7 @@ void						init_hit_record(t_hit_record *rec);
 
 t_lgt						light(t_point vtx, float i, t_color color);
 t_amb						amb(float i, t_color color);
+t_color						color_normalize(t_color color);
 t_color						color_add(t_color c1, t_color c2);
 double						clamp(double value, double min, double max);
 bool						is_blocked(t_scene *s, t_ray shadow_ray,

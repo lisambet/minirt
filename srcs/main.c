@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 21:31:35 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/29 12:00:23 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/29 13:32:14 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int ac, char **av)
 	scene = setup_scene(av[1], ft_strlen(av[1]));
 	if (scene.error || !scene.camera.enabled)
 	{
-		if (scene.input)
+		if (scene.input && scene.camera.enabled)
 			ft_tabfree(scene.input, ft_tablen(scene.input));
 		return (free_structs(scene));
 	}

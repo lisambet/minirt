@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_management.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 16:36:41 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/07/23 15:25:46 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/29 13:37:11 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,11 @@ t_scene	setup_scene(char *file, int len)
 		return (error_scene(scene, "Invalid file"));
 	scene.input = get_input(fd);
 	if (!scene.input)
-		return (error_scene(scene, "File couldn't be parsed."));
-	fill_scene(&scene);
-	if (scene.error && scene.input)
 	{
-		ft_tabfree(scene.input, ft_tablen(scene.input));
-		scene.input = NULL;
+		close(fd);
+		return (error_scene(scene, "File couldn't be parsed."));
 	}
+	fill_scene(&scene);
 	close(fd);
 	return (scene);
 }

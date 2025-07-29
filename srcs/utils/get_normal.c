@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_normal.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 11:01:47 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/23 15:30:39 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/29 14:21:56 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@ double	clamp(double value, double min, double max)
 	if (value > max)
 		return (max);
 	return (value);
+}
+
+t_color	color_normalize(t_color color)
+{
+	color.red /= 255;
+	color.green /= 255;
+	color.blue /= 255;
+	return (color);
 }
 
 t_color	color_add(t_color c1, t_color c2)
