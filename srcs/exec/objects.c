@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 21:31:35 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/24 13:22:59 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/29 20:23:41 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	hit_sphere(t_sphere *sp, t_ray r, double *t_out, double t)
 	oc = vec_sub(r.orig, sp->center);
 	a = vec_dot(r.dir, r.dir);
 	b = 2.0 * vec_dot(oc, r.dir);
-	c = vec_dot(oc, oc) - sp->diameter * sp->diameter;
+	c = vec_dot(oc, oc) - (sp->diameter * 0.5) * (sp->diameter * 0.5);
 	discriminant = b * b - 4 * a * c;
 	*t_out = 0;
 	if (discriminant < 0)

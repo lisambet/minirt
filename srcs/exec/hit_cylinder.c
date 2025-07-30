@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 17:10:40 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/24 13:55:44 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/30 14:11:05 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ bool	hit_cylinder_top_cap(t_cylinder *cyl, t_ray r, double *t_top_cap,
 		p = ray_at(r, t);
 		if (t >= 0.001 && (t < t_closest[0] || t_closest[0] < 0)
 			&& (t < t_closest[1] || t_closest[1] < 0)
-			&& vec_length_sq(vec_sub(p, top_center)) <= (cyl->diameter
-				* cyl->diameter) + 1e-6)
+			&& vec_length_sq(vec_sub(p, top_center)) <= (cyl->diameter * 0.5
+				* cyl->diameter * 0.5) + 1e-6)
 		{
 			*t_top_cap = t;
 			return (true);
@@ -84,8 +84,8 @@ bool	hit_cylinder_base_cap(t_cylinder *cyl, t_ray r, double *t_base_cap,
 		t = vec_dot(vec_sub(cyl->p0, r.orig), vec_neg(n)) / denom;
 		p = ray_at(r, t);
 		if (t >= 0.001 && (t < t_side_closest || t_side_closest < 0)
-			&& vec_length_sq(vec_sub(p, cyl->p0)) <= (cyl->diameter
-				* cyl->diameter) + 1e-6)
+			&& vec_length_sq(vec_sub(p, cyl->p0)) <= (cyl->diameter * 0.5
+				* cyl->diameter * 0.5) + 1e-6)
 		{
 			*t_base_cap = t;
 			return (true);
