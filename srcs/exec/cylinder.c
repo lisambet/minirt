@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 09:36:03 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/30 14:11:16 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/31 14:02:44 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	get_cyl_eq_coefficients(t_cylinder *cyl, t_ray r, double *indices[3])
 	d = r.dir;
 	*indices[0] = vec_dot(d, d) - pow(vec_dot(d, n), 2);
 	*indices[1] = 2.0 * (vec_dot(d, oc) - vec_dot(d, n) * vec_dot(oc, n));
-	*indices[2] = vec_dot(oc, oc) - pow(vec_dot(oc, n), 2) - cyl->diameter  * 0.5
-		* cyl->diameter  * 0.5;
+	*indices[2] = vec_dot(oc, oc) - pow(vec_dot(oc, n), 2)
+		- cyl->diameter * 0.5 * cyl->diameter * 0.5;
 }
 
 double	get_m_projection(t_cylinder *cyl, t_ray r, double t)
