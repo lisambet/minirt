@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 20:21:22 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/07/12 03:03:22 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/07/31 13:43:06 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_list
 
 // scraeyme
 int				ft_atoi(const char *nptr);
+int				ft_safe_atoi(const char *nptr);
 long long		ft_atol(const char *nptr);
 void			ft_bzero(void *s, size_t n);
 void			*ft_calloc(size_t nmemb, size_t size);

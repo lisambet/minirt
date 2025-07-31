@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_objects.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 15:48:25 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/07/29 14:20:48 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/07/31 13:43:30 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	parse_sphere(char *input, t_scene *scene)
 		return (set_error(scene));
 	}
 	coords = (t_point){ft_atod(tab[1]), ft_atod(tab[2]), ft_atod(tab[3])};
-	rgb = (t_color){(double)ft_atoi(tab[5]),
-		(double)ft_atoi(tab[6]), (double)ft_atoi(tab[7])};
+	rgb = (t_color){(double)ft_safe_atoi(tab[5]),
+		(double)ft_safe_atoi(tab[6]), (double)ft_safe_atoi(tab[7])};
 	sphere = ft_spherenew(coords, ft_atod(tab[4]), rgb);
 	ft_sphereadd_back(&scene->spheres, sphere);
 	ft_tabfree(tab, ft_tablen(tab));
@@ -58,8 +58,8 @@ void	parse_plane(char *input, t_scene *scene)
 	coords = (t_point){ft_atod(tab[1]), ft_atod(tab[2]), ft_atod(tab[3])};
 	vector = vec_normalize((t_vec){ft_atod(tab[4]), ft_atod(tab[5]),
 			ft_atod(tab[6])});
-	rgb = (t_color){(double)ft_atoi(tab[7]),
-		(double)ft_atoi(tab[8]), (double)ft_atoi(tab[9])};
+	rgb = (t_color){(double)ft_safe_atoi(tab[7]),
+		(double)ft_safe_atoi(tab[8]), (double)ft_safe_atoi(tab[9])};
 	plane = ft_planenew(coords, vector, rgb);
 	ft_planeadd_back(&scene->planes, plane);
 	ft_tabfree(tab, ft_tablen(tab));
@@ -86,8 +86,8 @@ void	parse_cylinder(char *input, t_scene *scene)
 	coords = (t_point){ft_atod(tab[1]), ft_atod(tab[2]), ft_atod(tab[3])};
 	axis = vec_normalize((t_vec){ft_atod(tab[4]), ft_atod(tab[5]),
 			ft_atod(tab[6])});
-	rgb = (t_color){(double)ft_atoi(tab[9]),
-		(double)ft_atoi(tab[10]), (double)ft_atoi(tab[11])};
+	rgb = (t_color){(double)ft_safe_atoi(tab[9]),
+		(double)ft_safe_atoi(tab[10]), (double)ft_safe_atoi(tab[11])};
 	cylinder = ft_cylindernew(coords, axis, (double [2]){ft_atod(tab[7]),
 			ft_atod(tab[8])}, rgb);
 	ft_cylinderadd_back(&scene->cylinders, cylinder);

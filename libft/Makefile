@@ -5,6 +5,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 NAME = libft.a
 
 SRCS =	ft_atoi.c \
+		ft_safe_atoi.c \
 		ft_atol.c \
 		ft_bzero.c \
 		ft_hasdigit.c \
