@@ -6,7 +6,7 @@
 /*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 15:48:17 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/08/01 14:23:24 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/08/01 14:46:07 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	parse_ambient(char *input, t_scene *scene)
 		return (set_error(scene));
 	}
 	scene->amb.i = ft_atof(tab[1]);
-	scene->amb.color = (t_color){(double)(ft_atoi(tab[2])),
-		(double)(ft_atoi(tab[3])), (double)(ft_atoi(tab[4]))};
+	scene->amb.color = (t_color){(double)(ft_safe_atoi(tab[2])),
+		(double)(ft_safe_atoi(tab[3])), (double)(ft_safe_atoi(tab[4]))};
 	scene->amb.enabled = true;
 	ft_tabfree(tab, ft_tablen(tab));
 }
@@ -73,8 +73,8 @@ void	parse_diffuse(char *input, t_scene *scene)
 	scene->light.vtx = (t_vec){-ft_atod(tab[1]), ft_atod(tab[2]),
 		ft_atod(tab[3])};
 	scene->light.i = ft_atof(tab[4]);
-	scene->light.color = (t_color){(double)(ft_atoi(tab[5])),
-		(double)(ft_atoi(tab[6])), (double)(ft_atoi(tab[7]))};
+	scene->light.color = (t_color){(double)(ft_safe_atoi(tab[5])),
+		(double)(ft_safe_atoi(tab[6])), (double)(ft_safe_atoi(tab[7]))};
 	scene->light.enabled = true;
 	ft_tabfree(tab, ft_tablen(tab));
 }
