@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_render.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 15:48:17 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/07/29 14:20:38 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/08/01 14:23:24 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	parse_camera(char *input, t_scene *scene)
 			ft_tabfree(tab, ft_tablen(tab));
 		return (set_error(scene));
 	}
-	scene->camera.pos = (t_point){ft_atod(tab[1]), ft_atod(tab[2]),
+	scene->camera.pos = (t_point){-ft_atod(tab[1]), ft_atod(tab[2]),
 		ft_atod(tab[3])};
 	scene->camera.dir = vec_normalize((t_point){ft_atod(tab[4]),
 			ft_atod(tab[5]), ft_atod(tab[6])});
@@ -70,7 +70,7 @@ void	parse_diffuse(char *input, t_scene *scene)
 			ft_tabfree(tab, ft_tablen(tab));
 		return (set_error(scene));
 	}
-	scene->light.vtx = (t_vec){ft_atod(tab[1]), ft_atod(tab[2]),
+	scene->light.vtx = (t_vec){-ft_atod(tab[1]), ft_atod(tab[2]),
 		ft_atod(tab[3])};
 	scene->light.i = ft_atof(tab[4]);
 	scene->light.color = (t_color){(double)(ft_atoi(tab[5])),

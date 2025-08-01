@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_objects.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scraeyme <scraeyme@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 15:48:25 by scraeyme          #+#    #+#             */
-/*   Updated: 2025/07/31 13:43:30 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/08/01 14:22:52 by scraeyme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	parse_sphere(char *input, t_scene *scene)
 			ft_tabfree(tab, ft_tablen(tab));
 		return (set_error(scene));
 	}
-	coords = (t_point){ft_atod(tab[1]), ft_atod(tab[2]), ft_atod(tab[3])};
+	coords = (t_point){-ft_atod(tab[1]), ft_atod(tab[2]), ft_atod(tab[3])};
 	rgb = (t_color){(double)ft_safe_atoi(tab[5]),
 		(double)ft_safe_atoi(tab[6]), (double)ft_safe_atoi(tab[7])};
 	sphere = ft_spherenew(coords, ft_atod(tab[4]), rgb);
@@ -55,8 +55,8 @@ void	parse_plane(char *input, t_scene *scene)
 			ft_tabfree(tab, ft_tablen(tab));
 		return (set_error(scene));
 	}
-	coords = (t_point){ft_atod(tab[1]), ft_atod(tab[2]), ft_atod(tab[3])};
-	vector = vec_normalize((t_vec){ft_atod(tab[4]), ft_atod(tab[5]),
+	coords = (t_point){-ft_atod(tab[1]), ft_atod(tab[2]), ft_atod(tab[3])};
+	vector = vec_normalize((t_vec){-ft_atod(tab[4]), ft_atod(tab[5]),
 			ft_atod(tab[6])});
 	rgb = (t_color){(double)ft_safe_atoi(tab[7]),
 		(double)ft_safe_atoi(tab[8]), (double)ft_safe_atoi(tab[9])};
@@ -83,8 +83,8 @@ void	parse_cylinder(char *input, t_scene *scene)
 			ft_tabfree(tab, ft_tablen(tab));
 		return (set_error(scene));
 	}
-	coords = (t_point){ft_atod(tab[1]), ft_atod(tab[2]), ft_atod(tab[3])};
-	axis = vec_normalize((t_vec){ft_atod(tab[4]), ft_atod(tab[5]),
+	coords = (t_point){-ft_atod(tab[1]), ft_atod(tab[2]), ft_atod(tab[3])};
+	axis = vec_normalize((t_vec){-ft_atod(tab[4]), ft_atod(tab[5]),
 			ft_atod(tab[6])});
 	rgb = (t_color){(double)ft_safe_atoi(tab[9]),
 		(double)ft_safe_atoi(tab[10]), (double)ft_safe_atoi(tab[11])};
