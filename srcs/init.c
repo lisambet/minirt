@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scraeyme <scraeyme@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:46:11 by lisambet          #+#    #+#             */
-/*   Updated: 2025/08/01 14:16:41 by scraeyme         ###   ########.fr       */
+/*   Updated: 2025/08/01 15:04:11 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,9 @@ void	render(t_scene *s, double u, double v)
 			r = ray(s->origin, direction);
 			color = ray_color(s, r);
 			draw_blocks(s, x, y, color);
-			x += SCALEDOWN;
+			x += s->scaledown;
 		}
-		y += SCALEDOWN;
+		y += s->scaledown;
 	}
 	printf("Done rendering image.\n");
 }

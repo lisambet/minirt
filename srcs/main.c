@@ -6,7 +6,7 @@
 /*   By: lisambet <lisambet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 21:31:35 by lisambet          #+#    #+#             */
-/*   Updated: 2025/07/29 13:32:14 by lisambet         ###   ########.fr       */
+/*   Updated: 2025/08/01 14:55:16 by lisambet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(int ac, char **av)
 			ft_tabfree(scene.input, ft_tablen(scene.input));
 		return (free_structs(scene));
 	}
+	scene.scaledown = SCALEDOWN;
 	init_scene(&scene);
 	render(&scene, 0, 0);
 	mlx_put_image_to_window(scene.mlx, scene.win, scene.img, 0, 0);
