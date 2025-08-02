@@ -1,0 +1,7 @@
+*.o
+*.d
+miniRT
+objs/
+minilibx-linux/
+*.a
+.vscode/
